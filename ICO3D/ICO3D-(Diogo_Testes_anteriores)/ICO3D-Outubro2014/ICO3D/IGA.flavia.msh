@@ -1,0 +1,5 @@
+MESH "problem" dimension 3 ElemType Hexahedra     Nnode  8
+ coordinates
+ end coordinates
+ Elements
+ end elements

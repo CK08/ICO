@@ -1,0 +1,171 @@
+
+#
+# Absoft Developer Tools Interface requires use of this makefile.
+#
+MKDIR=mkdir -p 
+RMDIR=rm -rf 
+
+#
+# Variables for the compiler(s) and linker
+#
+ABSOFT_F95=f95 
+ABSOFT_F77=f95
+VAST_PREPROCESSOR=vastfp
+RC=Rez
+GCC=gcc
+MAKE=amake2
+ABSOFT_F95_LINKER=f95
+DUMMY=
+
+#
+# Flags
+#
+ABSOFT_F95_FLAGS=        -O2 -W132 -m32 -stack:1f40000
+ABSOFT_F77_FLAGS=        -O2 -W132 -f77_compat -m32 -stack:1f40000
+RC_FLAGS=
+GCC_FLAGS=        -O2 -m32
+MAKE_FLAGS= -k
+ABSOFT_F95_LINKER_FLAGS=-IPA:debug=on -IPA:source_pu_order=on                -stack:1f40000 -m32 -O2
+
+#
+# Name of the executable
+#
+TARGET=ICO3D
+OUTDIR=.
+OBJDIR=./Release
+
+#
+# Files for this executable
+#
+VAST_PREPROCESSOR_FILES=
+ABSOFT_F95_FILES="../../Source-Code/Main_Programm/ICO3D.f90" "../../Source-Code/Subroutines/Element-Types/ElHex27.f90" "../../Source-Code/Subroutines/Material-Subroutines/MatIsoHardening.f90" "../../Source-Code/Subroutines/Material-Subroutines/MatLinearElastic3D.F90" "../../Source-Code/Subroutines/Material-Subroutines/MatPlastic3D.f90" "../../Source-Code/Subroutines/Material-Subroutines/MatPlastic3DEAS.f90" "../../Source-Code/Subroutines/Mod-Variables/Mod_Variables.f90" "../../Source-Code/Subroutines/Subroutines-Lib/Assembly3D.f95" "../../Source-Code/Subroutines/Subroutines-Lib/AssemblyBBar.F90" "../../Source-Code/Subroutines/Subroutines-Lib/AxisUpdate.f90" "../../Source-Code/Subroutines/Subroutines-Lib/BasisFunsDers.f90" "../../Source-Code/Subroutines/Subroutines-Lib/BSplineBasisAndDeriv.f90" "../../Source-Code/Subroutines/Subroutines-Lib/DefGrad3D.f90" "../../Source-Code/Subroutines/Subroutines-Lib/FindSpan.f90" "../../Source-Code/Subroutines/Subroutines-Lib/GaussQuadrature.f90" "../../Source-Code/Subroutines/Subroutines-Lib/GaussSolver.F90" "../../Source-Code/Subroutines/Subroutines-Lib/gen_ien_inn_bar.f90" "../../Source-Code/Subroutines/Subroutines-Lib/gen_ien_inn.f90" "../../Source-Code/Subroutines/Subroutines-Lib/GiDMesh.f90" "../../Source-Code/Subroutines/Subroutines-Lib/GiDRes.f90" "../../Source-Code/Subroutines/Subroutines-Lib/grvt.f90" "../../Source-Code/Subroutines/Subroutines-Lib/local_axis.f90" "../../Source-Code/Subroutines/Subroutines-Lib/PolarDecomp2D.f90" "../../Source-Code/Subroutines/Subroutines-Lib/prssr.f90" "../../Source-Code/Subroutines/Subroutines-Lib/ReadInFile.f90" "../../Source-Code/Subroutines/Subroutines-Lib/ShapeFunc.f90" "../../Source-Code/Subroutines/Subroutines-Lib/Subroutines.f90" "../../Source-Code/Subroutines/Subroutines-Lib/TransformationMat3D.f90" "../../Source-Code/Subroutines/Subroutines-Lib/VonMisesStress.f90"
+ABSOFT_F77_FILES=
+GCC_FILES=
+ABSOFT_F95_LINKER_FILES=
+RC_FILES=
+MAKE_FILES=
+
+#
+# Rules and dependencies for the executable
+#
+SRCFILES=$(ABSOFT_F95_FILES)
+OBJFILES="$(OBJDIR)/ICO3D.o" "$(OBJDIR)/ElHex27.o" "$(OBJDIR)/MatIsoHardening.o" "$(OBJDIR)/MatLinearElastic3D.o" "$(OBJDIR)/MatPlastic3D.o" "$(OBJDIR)/MatPlastic3DEAS.o" "$(OBJDIR)/Mod_Variables.o" "$(OBJDIR)/Assembly3D.o" "$(OBJDIR)/AssemblyBBar.o" "$(OBJDIR)/AxisUpdate.o" "$(OBJDIR)/BasisFunsDers.o" "$(OBJDIR)/BSplineBasisAndDeriv.o" "$(OBJDIR)/DefGrad3D.o" "$(OBJDIR)/FindSpan.o" "$(OBJDIR)/GaussQuadrature.o" "$(OBJDIR)/GaussSolver.o" "$(OBJDIR)/gen_ien_inn_bar.o" "$(OBJDIR)/gen_ien_inn.o" "$(OBJDIR)/GiDMesh.o" "$(OBJDIR)/GiDRes.o" "$(OBJDIR)/grvt.o" "$(OBJDIR)/local_axis.o" "$(OBJDIR)/PolarDecomp2D.o" "$(OBJDIR)/prssr.o" "$(OBJDIR)/ReadInFile.o" "$(OBJDIR)/ShapeFunc.o" "$(OBJDIR)/Subroutines.o" "$(OBJDIR)/TransformationMat3D.o" "$(OBJDIR)/VonMisesStress.o"
+all: "$(OBJDIR)" "$(OUTDIR)/$(TARGET)" $(RC_FILES)
+	
+
+"$(OUTDIR)/$(TARGET)":  $(OBJFILES) $(ABSOFT_F95_LINKER_FILES) $(MODFILES)
+	$(ABSOFT_F95_LINKER)  $(LPATHS) $(OBJFILES) $(ABSOFT_F95_LINKER_FILES) $(LIBS) -o "$(OUTDIR)/$(TARGET)" $(ABSOFT_F95_LINKER_FLAGS)
+
+
+
+"$(OBJDIR)/ICO3D.o": "../../Source-Code/Main_Programm/ICO3D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ICO3D.o" "../../Source-Code/Main_Programm/ICO3D.f90"
+
+"$(OBJDIR)/ElHex27.o": "../../Source-Code/Subroutines/Element-Types/ElHex27.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ElHex27.o" "../../Source-Code/Subroutines/Element-Types/ElHex27.f90"
+
+"$(OBJDIR)/MatIsoHardening.o": "../../Source-Code/Subroutines/Material-Subroutines/MatIsoHardening.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MatIsoHardening.o" "../../Source-Code/Subroutines/Material-Subroutines/MatIsoHardening.f90"
+
+"$(OBJDIR)/MatLinearElastic3D.o": "../../Source-Code/Subroutines/Material-Subroutines/MatLinearElastic3D.F90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MatLinearElastic3D.o" "../../Source-Code/Subroutines/Material-Subroutines/MatLinearElastic3D.F90"
+
+"$(OBJDIR)/MatPlastic3D.o": "../../Source-Code/Subroutines/Material-Subroutines/MatPlastic3D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MatPlastic3D.o" "../../Source-Code/Subroutines/Material-Subroutines/MatPlastic3D.f90"
+
+"$(OBJDIR)/MatPlastic3DEAS.o": "../../Source-Code/Subroutines/Material-Subroutines/MatPlastic3DEAS.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MatPlastic3DEAS.o" "../../Source-Code/Subroutines/Material-Subroutines/MatPlastic3DEAS.f90"
+
+"$(OBJDIR)/Mod_Variables.o": "../../Source-Code/Subroutines/Mod-Variables/Mod_Variables.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/Mod_Variables.o" "../../Source-Code/Subroutines/Mod-Variables/Mod_Variables.f90"
+
+"$(OBJDIR)/Assembly3D.o": "../../Source-Code/Subroutines/Subroutines-Lib/Assembly3D.f95"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/Assembly3D.o" "../../Source-Code/Subroutines/Subroutines-Lib/Assembly3D.f95"
+
+"$(OBJDIR)/AssemblyBBar.o": "../../Source-Code/Subroutines/Subroutines-Lib/AssemblyBBar.F90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/AssemblyBBar.o" "../../Source-Code/Subroutines/Subroutines-Lib/AssemblyBBar.F90"
+
+"$(OBJDIR)/AxisUpdate.o": "../../Source-Code/Subroutines/Subroutines-Lib/AxisUpdate.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/AxisUpdate.o" "../../Source-Code/Subroutines/Subroutines-Lib/AxisUpdate.f90"
+
+"$(OBJDIR)/BasisFunsDers.o": "../../Source-Code/Subroutines/Subroutines-Lib/BasisFunsDers.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/BasisFunsDers.o" "../../Source-Code/Subroutines/Subroutines-Lib/BasisFunsDers.f90"
+
+"$(OBJDIR)/BSplineBasisAndDeriv.o": "../../Source-Code/Subroutines/Subroutines-Lib/BSplineBasisAndDeriv.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/BSplineBasisAndDeriv.o" "../../Source-Code/Subroutines/Subroutines-Lib/BSplineBasisAndDeriv.f90"
+
+"$(OBJDIR)/DefGrad3D.o": "../../Source-Code/Subroutines/Subroutines-Lib/DefGrad3D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/DefGrad3D.o" "../../Source-Code/Subroutines/Subroutines-Lib/DefGrad3D.f90"
+
+"$(OBJDIR)/FindSpan.o": "../../Source-Code/Subroutines/Subroutines-Lib/FindSpan.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/FindSpan.o" "../../Source-Code/Subroutines/Subroutines-Lib/FindSpan.f90"
+
+"$(OBJDIR)/GaussQuadrature.o": "../../Source-Code/Subroutines/Subroutines-Lib/GaussQuadrature.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GaussQuadrature.o" "../../Source-Code/Subroutines/Subroutines-Lib/GaussQuadrature.f90"
+
+"$(OBJDIR)/GaussSolver.o": "../../Source-Code/Subroutines/Subroutines-Lib/GaussSolver.F90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GaussSolver.o" "../../Source-Code/Subroutines/Subroutines-Lib/GaussSolver.F90"
+
+"$(OBJDIR)/gen_ien_inn_bar.o": "../../Source-Code/Subroutines/Subroutines-Lib/gen_ien_inn_bar.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/gen_ien_inn_bar.o" "../../Source-Code/Subroutines/Subroutines-Lib/gen_ien_inn_bar.f90"
+
+"$(OBJDIR)/gen_ien_inn.o": "../../Source-Code/Subroutines/Subroutines-Lib/gen_ien_inn.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/gen_ien_inn.o" "../../Source-Code/Subroutines/Subroutines-Lib/gen_ien_inn.f90"
+
+"$(OBJDIR)/GiDMesh.o": "../../Source-Code/Subroutines/Subroutines-Lib/GiDMesh.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GiDMesh.o" "../../Source-Code/Subroutines/Subroutines-Lib/GiDMesh.f90"
+
+"$(OBJDIR)/GiDRes.o": "../../Source-Code/Subroutines/Subroutines-Lib/GiDRes.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GiDRes.o" "../../Source-Code/Subroutines/Subroutines-Lib/GiDRes.f90"
+
+"$(OBJDIR)/grvt.o": "../../Source-Code/Subroutines/Subroutines-Lib/grvt.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/grvt.o" "../../Source-Code/Subroutines/Subroutines-Lib/grvt.f90"
+
+"$(OBJDIR)/local_axis.o": "../../Source-Code/Subroutines/Subroutines-Lib/local_axis.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/local_axis.o" "../../Source-Code/Subroutines/Subroutines-Lib/local_axis.f90"
+
+"$(OBJDIR)/PolarDecomp2D.o": "../../Source-Code/Subroutines/Subroutines-Lib/PolarDecomp2D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/PolarDecomp2D.o" "../../Source-Code/Subroutines/Subroutines-Lib/PolarDecomp2D.f90"
+
+"$(OBJDIR)/prssr.o": "../../Source-Code/Subroutines/Subroutines-Lib/prssr.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/prssr.o" "../../Source-Code/Subroutines/Subroutines-Lib/prssr.f90"
+
+"$(OBJDIR)/ReadInFile.o": "../../Source-Code/Subroutines/Subroutines-Lib/ReadInFile.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ReadInFile.o" "../../Source-Code/Subroutines/Subroutines-Lib/ReadInFile.f90"
+
+"$(OBJDIR)/ShapeFunc.o": "../../Source-Code/Subroutines/Subroutines-Lib/ShapeFunc.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ShapeFunc.o" "../../Source-Code/Subroutines/Subroutines-Lib/ShapeFunc.f90"
+
+"$(OBJDIR)/Subroutines.o": "../../Source-Code/Subroutines/Subroutines-Lib/Subroutines.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/Subroutines.o" "../../Source-Code/Subroutines/Subroutines-Lib/Subroutines.f90"
+
+"$(OBJDIR)/TransformationMat3D.o": "../../Source-Code/Subroutines/Subroutines-Lib/TransformationMat3D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/TransformationMat3D.o" "../../Source-Code/Subroutines/Subroutines-Lib/TransformationMat3D.f90"
+
+"$(OBJDIR)/VonMisesStress.o": "../../Source-Code/Subroutines/Subroutines-Lib/VonMisesStress.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/VonMisesStress.o" "../../Source-Code/Subroutines/Subroutines-Lib/VonMisesStress.f90"
+
+"$(OBJDIR)":
+	$(MKDIR) "$(OBJDIR)"
+#
+# Clean Rules
+#
+clean:
+	$(RMDIR) "$(OBJDIR)"
+	$(RMDIR) "$(TARGET)"
+
+#
+# Define necessary macros for dependency scanning.
+#
+MKDEP=amakedepend
+MKDEP_FLAGS= -quiet "-pre$(OBJDIR)/" -Y -modInfo -errdel -f90 -f makefile.amake
+#
+# Generate dependencies for the project
+#
+ScanAll: "$(OUTDIR)" "$(OBJDIR)" MakeDepsAll
+
+#
+# Scan for all F77, F95, and c/c++ dependencies
+#
+MakeDepsAll:
+	$(MKDEP) -quiet "-pre./Release/" -Y -modInfo -errdel -f90 -f makefile.amake -a -info         -O2 -W132 -m32 -stack:1f40000 -info "../../Source-Code/Main_Programm/ICO3D.f90" "../../Source-Code/Subroutines/Element-Types/ElHex27.f90" "../../Source-Code/Subroutines/Material-Subroutines/MatIsoHardening.f90" "../../Source-Code/Subroutines/Material-Subroutines/MatLinearElastic3D.F90" "../../Source-Code/Subroutines/Material-Subroutines/MatPlastic3D.f90" "../../Source-Code/Subroutines/Material-Subroutines/MatPlastic3DEAS.f90" "../../Source-Code/Subroutines/Mod-Variables/Mod_Variables.f90" "../../Source-Code/Subroutines/Subroutines-Lib/Assembly3D.f95" "../../Source-Code/Subroutines/Subroutines-Lib/AssemblyBBar.F90" "../../Source-Code/Subroutines/Subroutines-Lib/AxisUpdate.f90" "../../Source-Code/Subroutines/Subroutines-Lib/BasisFunsDers.f90" "../../Source-Code/Subroutines/Subroutines-Lib/BSplineBasisAndDeriv.f90" "../../Source-Code/Subroutines/Subroutines-Lib/DefGrad3D.f90" "../../Source-Code/Subroutines/Subroutines-Lib/FindSpan.f90" "../../Source-Code/Subroutines/Subroutines-Lib/GaussQuadrature.f90" "../../Source-Code/Subroutines/Subroutines-Lib/GaussSolver.F90" "../../Source-Code/Subroutines/Subroutines-Lib/gen_ien_inn_bar.f90" "../../Source-Code/Subroutines/Subroutines-Lib/gen_ien_inn.f90" "../../Source-Code/Subroutines/Subroutines-Lib/GiDMesh.f90" "../../Source-Code/Subroutines/Subroutines-Lib/GiDRes.f90" "../../Source-Code/Subroutines/Subroutines-Lib/grvt.f90" "../../Source-Code/Subroutines/Subroutines-Lib/local_axis.f90" "../../Source-Code/Subroutines/Subroutines-Lib/PolarDecomp2D.f90" "../../Source-Code/Subroutines/Subroutines-Lib/prssr.f90" "../../Source-Code/Subroutines/Subroutines-Lib/ReadInFile.f90" "../../Source-Code/Subroutines/Subroutines-Lib/ShapeFunc.f90" "../../Source-Code/Subroutines/Subroutines-Lib/Subroutines.f90" "../../Source-Code/Subroutines/Subroutines-Lib/TransformationMat3D.f90" "../../Source-Code/Subroutines/Subroutines-Lib/VonMisesStress.f90" 

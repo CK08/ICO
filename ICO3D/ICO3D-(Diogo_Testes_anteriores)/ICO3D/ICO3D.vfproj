@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VisualStudioProject ProjectCreator="Intel Fortran" Keyword="Console Application" Version="11.0" ProjectIdGuid="{7F017BDA-6ACD-4B37-A2D6-A8FBA32440DC}">
+	<Platforms>
+		<Platform Name="Win32"/></Platforms>
+	<Configurations>
+		<Configuration Name="Debug|Win32">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" Interfaces="true" WarnInterfaces="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|Win32">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
+	<Files>
+		<Filter Name="Header Files" Filter="fi;fd"/>
+		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
+		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
+		<File RelativePath=".\Assembly3D.f90"/>
+		<File RelativePath=".\AssemblyBBar.F90"/>
+		<File RelativePath=".\AxisUpdate.f90"/>
+		<File RelativePath=".\BasisFuns.f90"/>
+		<File RelativePath=".\BasisFunsDers.f90"/>
+		<File RelativePath=".\BCKANS.f90"/>
+		<File RelativePath=".\BckEAS.f90"/>
+		<File RelativePath=".\BSplineBasisAndDeriv.f90"/>
+		<File RelativePath=".\DefGrad3D.f90"/>
+		<File RelativePath=".\Eig3.f90"/>
+		<File RelativePath=".\ElHex27.f90"/>
+		<File RelativePath=".\ElHex27_ProjVol.f90"/>
+		<File RelativePath=".\ElHex27R.f90"/>
+		<File RelativePath=".\ElHex27_Teste.f90"/>
+		<File RelativePath=".\ElHex27ANS.f90"/>
+		<File RelativePath=".\ElHex27ANS2.f90"/>
+		<File RelativePath=".\ElHex27BBar.F90"/>
+		<File RelativePath=".\ElHex27EAS.f90"/>
+		<File RelativePath=".\ElHex27EAS_PW.f90"/>
+		<File RelativePath=".\ElHex27PVS.f90"/>
+		<File RelativePath=".\ElHex27SRI.f90"/>
+		<File RelativePath=".\ElHex64.f90"/>
+		<File RelativePath=".\ElHex8.f90"/>
+		<File RelativePath=".\ElHex8ANS.f90"/>
+		<File RelativePath=".\ElHex8BBar.F90"/>
+		<File RelativePath=".\ElHexRed.f90"/>
+		<File RelativePath=".\FindSpan.f90"/>
+		<File RelativePath=".\GaussQuadrature.f90"/>
+		<File RelativePath=".\GaussSolver.F90"/>
+		<File RelativePath=".\gen_ien_inn.f90"/>
+		<File RelativePath=".\gen_ien_inn_bar.f90"/>
+		<File RelativePath=".\GiDMesh.f90"/>
+		<File RelativePath=".\GiDRes.f90"/>
+		<File RelativePath=".\grvt.f90"/>
+		<File RelativePath=".\Hex27PV.f90"/>
+		<File RelativePath=".\ICO3D.f90"/>
+		<File RelativePath=".\local_axis.f90"/>
+		<File RelativePath=".\MatIsoHardening.f90"/>
+		<File RelativePath=".\MatLinearElastic3D.F90"/>
+		<File RelativePath=".\MatPlastic3D.f90"/>
+		<File RelativePath=".\MatPlastic3DEAS.f90"/>
+		<File RelativePath=".\Mod_Variables.f90"/>
+		<File RelativePath=".\MultMat.F90"/>
+		<File RelativePath=".\PolarDecomp2D.f90"/>
+		<File RelativePath=".\ProblemList.f90"/>
+		<File RelativePath=".\prssr.f90"/>
+		<File RelativePath=".\ReadInFile.f90"/>
+		<File RelativePath=".\ShapeFunc.f90"/>
+		<File RelativePath=".\ShapeFuncBar.f90"/>
+		<File RelativePath=".\ShapeFuncBubble.f90"/>
+		<File RelativePath=".\Solver2.f"/>
+		<File RelativePath=".\Solver3.f"/>
+		<File RelativePath=".\SolverRoutines.F90"/>
+		<File RelativePath=".\Subroutines.f90"/>
+		<File RelativePath=".\SubroutinesANS.f90"/>
+		<File RelativePath=".\TransformationMat3D.f90"/>
+		<File RelativePath=".\VonMisesStress.f90"/></Filter></Files>
+	<Globals/></VisualStudioProject>

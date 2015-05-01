@@ -1,0 +1,76 @@
+!----------------------------------------------------------------
+!
+! Simple Example with 2 patches
+!
+!----------------------------------------------------------------
+*begin_MP
+2       !number of patches
+2       !problem dimension
+1, 1	!degree of each dimension patch1
+1, 1    !degree of each dimension patch2
+2, 2    !control points in each direction patch1
+2, 2    !control points in each direction patch2
+0, 0    !open(0) or closed(1) knot vector patch1
+0, 0    !open(0) or closed(1) knot vector patch2
+8       !total number of nodes
+-----------------------------------------------------------------
+*knots    !knot spans
+0.0, 0.0, 1.0, 1.0  !U patch 1
+0.0, 0.0, 1.0, 1.0  !V patch 2
+0.0, 0.0, 1.0, 1.0  !U patch 2
+0.0, 0.0, 1.0, 1.0  !V patch 2
+-----------------------------------------------------------------
+*element
+Quad4E  !Element for patch 1
+Quad4E  !Element for patch 2
+*bnet     
+0.000000E+000 0.000000E+000 1.000000E+000 !nurbs control points for patch 1
+0.000000E+000 1.000000E+000 1.000000E+000
+1.000000E+000 0.000000E+000 1.000000E+000
+1.000000E+000 1.000000E+000 1.000000E+000
+0.100000E+000 1.000000E+000 1.000000E+000 !nurbs control points for patch 2
+0.100000E+000 2.000000E+000 1.000000E+000
+0.900000E+000 1.000000E+000 1.000000E+000
+0.900000E+000 2.000000E+000 1.000000E+000
+-----------------------------------------------------------------
+*MP_conn
+1, 4,3,2,1
+2, 8,7,6,5
+-----------------------------------------------------------------
+*material
+5
+1000.0, 0.0, 1.0, 0.0, 1.0e25
+1000.0, 0.0, 1.0, 0.0, 1.0e25
+*Multistep
+1
+*step
+*increment
+1
+*iteration
+100
+*bcdof
+6
+1, 1
+1, 2
+2, 1
+2, 2
+7, 1
+8, 1
+*dispdof
+2
+7, 2, -0.2
+8, 2, -0.2
+*endstep
+-----------------------------------------------------------------
+*ContactPTS
+*Master
+1
+2
+0.0, 0.0, 1.0, 1.0
+3, 4
+*Slave
+1
+2
+0.0, 0.0, 1.0, 1.0
+5, 6
+*end

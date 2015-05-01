@@ -1,0 +1,236 @@
+<html><head><title>Mod_Variables.f90</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="sourcestyles.css" />
+</head><body link="blue" vlink="blue">
+<h3>File: /Users/diogocardoso/Desktop/ICO3D/ICO3D-V001/Source-Code/Subroutines/Mod-Variables/Mod_Variables.f90</h3>
+<SCRIPT>
+defaultStatus = "File: /Users/diogocardoso/Desktop/ICO3D/ICO3D-V001/Source-Code/Subroutines/Mod-Variables/Mod_Variables.f90";
+top.document.title  = "Mod_Variables.f90";
+</SCRIPT>
+<pre><span class="default"></span><a name="1"><font size=-1>1     </font></a><span class="default"></span><span class="comment">!---------------------------------------------------------------</span>
+<a name="2"><font size=-1>2     </font></a><span class="comment">!</span>
+<a name="3"><font size=-1>3     </font></a><span class="comment">! Global Variables Module</span>
+<a name="4"><font size=-1>4     </font></a><span class="comment">!</span>
+<a name="5"><font size=-1>5     </font></a><span class="comment">!---------------------------------------------------------------</span>
+<a name="6"><font size=-1>6     </font></a><span class="comment"></span>
+<a name="7"><font size=-1>7     </font></a><span class="comment"></span><span class="keyword">Module <a href="dictionary_M.html#108">Mod_Variables</a></span>
+<a name="8"><font size=-1>8     </font></a><span class="keyword"></span>
+<a name="9"><font size=-1>9     </font></a><span class="keyword">    </span><span class="comment">!-----------------------------------------------------------------------------------------------------------------------</span>
+<a name="10"><font size=-1>10     </font></a><span class="comment">    ! English::</span>
+<a name="11"><font size=-1>11     </font></a><span class="comment">    ! The following global variables have different functions in the main program, such as:         </span>
+<a name="12"><font size=-1>12     </font></a><span class="comment">    !        - RToler (Convergence Residual Tolerance)</span>
+<a name="13"><font size=-1>13     </font></a><span class="comment">    !        - nds (Number of dimensions in the problem)</span>
+<a name="14"><font size=-1>14     </font></a><span class="comment">    !        - incmax (Maximum number of increments in the analysis)</span>
+<a name="15"><font size=-1>15     </font></a><span class="comment">    !        - itermax (Maximum number of iterations per increment in the analysis)</span>
+<a name="16"><font size=-1>16     </font></a><span class="comment">    !        - p, q, w (degree in each direction: x, y e z, respectively)        </span>
+<a name="17"><font size=-1>17     </font></a><span class="comment">    !        - ncpx, ncpy, ncpz (Number of control points in each direction - x, y e z, respectively)</span>
+<a name="18"><font size=-1>18     </font></a><span class="comment">    !        - nnodes (Number of nodes)</span>
+<a name="19"><font size=-1>19     </font></a><span class="comment">    !        - nelems (Number of elements)</span>
+<a name="20"><font size=-1>20     </font></a><span class="comment">    !        - nshpl (Number of shape functions)</span>
+<a name="21"><font size=-1>21     </font></a><span class="comment">    !        - closed_u, closed_v, closed_w (Closed Knot Vectors - Defined as in IGA book (Hughes) but currently NOT IN USE!)</span>
+<a name="22"><font size=-1>22     </font></a><span class="comment">    !        - elcode (String with element type, for example: 'Hex8')</span>
+<a name="23"><font size=-1>23     </font></a><span class="comment">    !        - nbc (Number of boundary conditions)</span>
+<a name="24"><font size=-1>24     </font></a><span class="comment">    !        - ndisp (Number of degrees of freedom affected by prescribied displacements)</span>
+<a name="25"><font size=-1>25     </font></a><span class="comment">    !</span>
+<a name="26"><font size=-1>26     </font></a><span class="comment">    !        - npi (Number of integration points per element)</span>
+<a name="27"><font size=-1>27     </font></a><span class="comment">    !        - SEnergy (Strain Energy)</span>
+<a name="28"><font size=-1>28     </font></a><span class="comment">    !        - SEnergyConv (Strain Energy Converged)</span>
+<a name="29"><font size=-1>29     </font></a><span class="comment">    !        - props (Material properties vector. The order of the vector is given in table 1 of ICO User Manual)</span>
+<a name="30"><font size=-1>30     </font></a><span class="comment">    !        - iprops (Dimension of &quot;props&quot; vector)</span>
+<a name="31"><font size=-1>31     </font></a><span class="comment">    !        - npenal (Penalty Method applied to DupNode [Duplicated Nodes] - in Assembly3D.f90)</span>
+<a name="32"><font size=-1>32     </font></a><span class="comment">    !        - ipenal (Penalty Method applied to DupNode [Duplicated Nodes] - in Assembly3D.f90)</span>
+<a name="33"><font size=-1>33     </font></a><span class="comment">    !        - bc (Boundary Conditions, not for prescribed displacements)</span>
+<a name="34"><font size=-1>34     </font></a><span class="comment">    !        - iper (&quot;Nao me lembro&quot; - J.F. Caseiro)</span>
+<a name="35"><font size=-1>35     </font></a><span class="comment">    !        - dir_bc (not used)</span>
+<a name="36"><font size=-1>36     </font></a><span class="comment">    !        - ld_el (not used)</span>
+<a name="37"><font size=-1>37     </font></a><span class="comment">    !        - load (Matrix with point loads)</span>
+<a name="38"><font size=-1>38     </font></a><span class="comment">    !        - dispBC (Prescribed Displacement Boundary Conditions)</span>
+<a name="39"><font size=-1>39     </font></a><span class="comment">    !        - BW (Weighted control points)</span>
+<a name="40"><font size=-1>40     </font></a><span class="comment">    !        - EY (not used - possibly assign one material for each element [EY - Young modulus])</span>
+<a name="41"><font size=-1>41     </font></a><span class="comment">    !        - NU (not used - possibly assign one material for each element [NU - Poisson's coefficient])</span>
+<a name="42"><font size=-1>42     </font></a><span class="comment">    !        - Fext (External Forces)</span>
+<a name="43"><font size=-1>43     </font></a><span class="comment">    !        - FextEq (External Forces Reduced System)</span>
+<a name="44"><font size=-1>44     </font></a><span class="comment">    !        - Fini (Initial Forces)</span>
+<a name="45"><font size=-1>45     </font></a><span class="comment">    !        - FInc (Incremental external force)</span>
+<a name="46"><font size=-1>46     </font></a><span class="comment">    !        - Fint (Internal Forces)</span>
+<a name="47"><font size=-1>47     </font></a><span class="comment">    !        - Res (External Forces - Internal Forces = Residual)</span>
+<a name="48"><font size=-1>48     </font></a><span class="comment">    !        - ImpDisp (Implicit/Prescribed Displacement - Array)</span>
+<a name="49"><font size=-1>49     </font></a><span class="comment">    !        - Kf (Global Stiffeness Matrix)</span>
+<a name="50"><font size=-1>50     </font></a><span class="comment">    !        - KfEq (Reduced Global Stiffeness Matrix)</span>
+<a name="51"><font size=-1>51     </font></a><span class="comment">    !        - KfEqInv (Inverse of the Reduced Global Stiffeness Matrix - currently not used [slowwww])</span>
+<a name="52"><font size=-1>52     </font></a><span class="comment">    !        - dispeqv (Increment of the Increment of the Reduced Displacement)</span>
+<a name="53"><font size=-1>53     </font></a><span class="comment">    !        - RedCount (Auxiliar array to construct the global displacement array from the reduced one)</span>
+<a name="54"><font size=-1>54     </font></a><span class="comment">    !        - dDisp (Displacement Increment)</span>
+<a name="55"><font size=-1>55     </font></a><span class="comment">    !        - ddDisp (Incremente of the displacement increment)</span>
+<a name="56"><font size=-1>56     </font></a><span class="comment">    !        - u (Displacement)</span>
+<a name="57"><font size=-1>57     </font></a><span class="comment">    !        - stress (STRESS:: element number, integration point, stress component)</span>
+<a name="58"><font size=-1>58     </font></a><span class="comment">    !        - dstress (Stress Increment)</span>
+<a name="59"><font size=-1>59     </font></a><span class="comment">    !        - stress_conv (Converged Stress)</span>
+<a name="60"><font size=-1>60     </font></a><span class="comment">    !        - strain (Strain:: equal to stress)</span>
+<a name="61"><font size=-1>61     </font></a><span class="comment">    !        - dstrain (Strain Increment)</span>
+<a name="62"><font size=-1>62     </font></a><span class="comment">    !        - strain_conv (Converged Strain)</span>
+<a name="63"><font size=-1>63     </font></a><span class="comment">    !        - hard (Hardening:: element number, integration point)</span>
+<a name="64"><font size=-1>64     </font></a><span class="comment">    !        - hard_conv (Converged Hardening)</span>
+<a name="65"><font size=-1>65     </font></a><span class="comment">    !        - TmatD (Constitutive (D) matrix backup)</span>
+<a name="66"><font size=-1>66     </font></a><span class="comment">    !        - laxis (local axis:: element, integration point, axis)</span>
+<a name="67"><font size=-1>67     </font></a><span class="comment">    !        - laxisconv (Converged local axis)</span>
+<a name="68"><font size=-1>68     </font></a><span class="comment">    !        - PMesh (Control Points Coordinates in the global numbering system [i.e. GiD, contact])</span>
+<a name="69"><font size=-1>69     </font></a><span class="comment">    !        - stpfrac (Fraction of applied prescribed displacement in the increment)</span>
+<a name="70"><font size=-1>70     </font></a><span class="comment">    !        - Weight (Control Point Weights)</span>
+<a name="71"><font size=-1>71     </font></a><span class="comment">    !        - Points (Control Points Coordinates)</span>
+<a name="72"><font size=-1>72     </font></a><span class="comment">    !        - penalmeth (Penalty Method - it does something cool!!!)</span>
+<a name="73"><font size=-1>73     </font></a><span class="comment">    !        - nlgeom (bool: if True - accounts for GNL [Geometric Non-Linearity])</span>
+<a name="74"><font size=-1>74     </font></a><span class="comment">    !        - loaddof (Load with global numbering)</span>
+<a name="75"><font size=-1>75     </font></a><span class="comment">    !        - dispdof (Zero displacement BC with global numbering)</span>
+<a name="76"><font size=-1>76     </font></a><span class="comment">    !        - Eigen (Used to compute Eigen values of a 3x3 matrix)</span>
+<a name="77"><font size=-1>77     </font></a><span class="comment">    !        - vcp (Eigen Vectors)</span>
+<a name="78"><font size=-1>78     </font></a><span class="comment">    !        - vlp (Eigen Values) </span>
+<a name="79"><font size=-1>79     </font></a><span class="comment">    !        </span>
+<a name="80"><font size=-1>80     </font></a><span class="comment">    !        MATERIALS - material properties relative dimensions </span>
+<a name="81"><font size=-1>81     </font></a><span class="comment">    !        - ndi (Number of direct components) </span>
+<a name="82"><font size=-1>82     </font></a><span class="comment">    !        - nshr (Number of Shear components)</span>
+<a name="83"><font size=-1>83     </font></a><span class="comment">    !        - ntens (ndi + nshr)</span>
+<a name="84"><font size=-1>84     </font></a><span class="comment">    !        </span>
+<a name="85"><font size=-1>85     </font></a><span class="comment">    !        KNOT VECTORS - </span>
+<a name="86"><font size=-1>86     </font></a><span class="comment">    !        - u_knot, v_knot, w_knot (knot vectors in each direction: x, y e z, respectively)</span>
+<a name="87"><font size=-1>87     </font></a><span class="comment">    !        </span>
+<a name="88"><font size=-1>88     </font></a><span class="comment">    !        CONTROL POINTS - </span>
+<a name="89"><font size=-1>89     </font></a><span class="comment">    !        - b_net (Control Points original coordenates matrix)</span>
+<a name="90"><font size=-1>90     </font></a><span class="comment">    !        - b_net_final (Control Points deformed coordenates matrix) </span>
+<a name="91"><font size=-1>91     </font></a><span class="comment">    !        </span>
+<a name="92"><font size=-1>92     </font></a><span class="comment">    !        NURBS COORDENATES VECTORES </span>
+<a name="93"><font size=-1>93     </font></a><span class="comment">    !        - INN (basis function for a determined connectivity/element)</span>
+<a name="94"><font size=-1>94     </font></a><span class="comment">    !</span>
+<a name="95"><font size=-1>95     </font></a><span class="comment">    !        NODES PER ELEMENT VECTORS - </span>
+<a name="96"><font size=-1>96     </font></a><span class="comment">    !        - IEN (Matrix with the connectivities for IG [IsoGeometric] elements - are given by the knot vectors, first in the x direction, followed by y and z)</span>
+<a name="97"><font size=-1>97     </font></a><span class="comment">    !        - conn (&quot;Nao serve para nada&quot; - J.F. Caseiro)</span>
+<a name="98"><font size=-1>98     </font></a><span class="comment">    !</span>
+<a name="99"><font size=-1>99     </font></a><span class="comment">    !        GRAVITY -</span>
+<a name="100"><font size=-1>100     </font></a><span class="comment">    !        - gravity (Bool - if TRUE, gravity is considered in the analysis)</span>
+<a name="101"><font size=-1>101     </font></a><span class="comment">    !        - gravdir (Integer that takes values 1, 2 and 3 for gravity direction: x, y ou z, respectively)</span>
+<a name="102"><font size=-1>102     </font></a><span class="comment">    !        - gconst (Gravitacional Constant &quot;g&quot;)</span>
+<a name="103"><font size=-1>103     </font></a><span class="comment">    !</span>
+<a name="104"><font size=-1>104     </font></a><span class="comment">    !        PRESSURE - </span>
+<a name="105"><font size=-1>105     </font></a><span class="comment">    !        - ipress (Integer that defines the number of surfaces under pressure load)</span>
+<a name="106"><font size=-1>106     </font></a><span class="comment">    !        - ierror (error index)</span>
+<a name="107"><font size=-1>107     </font></a><span class="comment">    !        - tempc (read file - not important or is it?)</span>
+<a name="108"><font size=-1>108     </font></a><span class="comment">    !        - pressvec (Pressure Magnitude)</span>
+<a name="109"><font size=-1>109     </font></a><span class="comment">    !        - ftag (Element Face - read ICO User Manual)</span>
+<a name="110"><font size=-1>110     </font></a><span class="comment">    !        - pressure (Bool - True if pressure exists)</span>
+<a name="111"><font size=-1>111     </font></a><span class="comment">    !                </span>
+<a name="112"><font size=-1>112     </font></a><span class="comment">    !        B-BAR METHOD - </span>
+<a name="113"><font size=-1>113     </font></a><span class="comment">    !        - IENb (Connectivities for B-Bar)</span>
+<a name="114"><font size=-1>114     </font></a><span class="comment">    !        - MatAf (B-Bar mixed method - zienkiewicz book [good luck ;)])</span>
+<a name="115"><font size=-1>115     </font></a><span class="comment">    !        - MatVf (B-Bar mixed method - zienkiewicz book [good luck ;)])</span>
+<a name="116"><font size=-1>116     </font></a><span class="comment">    !        - MatCf, MatCfT (B-Bar mixed method - zienkiewicz book [good luck ;)])</span>
+<a name="117"><font size=-1>117     </font></a><span class="comment">    !        - Kbar (Stiffeness after static condensation of B-Bar)</span>
+<a name="118"><font size=-1>118     </font></a><span class="comment">    !        - fbar (Load after static condensation of B-Bar)</span>
+<a name="119"><font size=-1>119     </font></a><span class="comment">    !        - nalpha (number of EAS enhanced parameters)</span>
+<a name="120"><font size=-1>120     </font></a><span class="comment">    !        - diag ()</span>
+<a name="121"><font size=-1>121     </font></a><span class="comment">    !        - nlin, ncol (Number of line and columns of the MatVf)</span>
+<a name="122"><font size=-1>122     </font></a><span class="comment">    !        - indx (index number)    </span>
+<a name="123"><font size=-1>123     </font></a><span class="comment">    !    </span>
+<a name="124"><font size=-1>124     </font></a><span class="comment">    ! Added by Diogo Cardoso, March 2014.</span>
+<a name="125"><font size=-1>125     </font></a><span class="comment">    !-----------------------------------------------------------------------------------------------------------------------</span>
+<a name="126"><font size=-1>126     </font></a><span class="comment">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">parameter</span><span class="default">::<a href="dictionary_R.html#913">RToler</a>=</span><span class="number">0.0001d0</span>
+<a name="127"><font size=-1>127     </font></a><span class="number">    </span>
+<a name="128"><font size=-1>128     </font></a><span class="number">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_N.html#112">nds</a>,<a href="dictionary_I.html#304">incmax</a>,<a href="dictionary_I.html#305">itermax</a></span>
+<a name="129"><font size=-1>129     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_P.html#109">p</a>,<a href="dictionary_Q.html#110">q</a>,<a href="dictionary_W.html#111">w</a></span>
+<a name="130"><font size=-1>130     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_N.html#247">ncpx</a>,<a href="dictionary_N.html#248">ncpy</a>,<a href="dictionary_N.html#249">ncpz</a></span>
+<a name="131"><font size=-1>131     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_N.html#253">nnodes</a>,<a href="dictionary_N.html#131">nelems</a>,<a href="dictionary_N.html#127">nshpl</a></span>
+<a name="132"><font size=-1>132     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_C.html#250">closed_u</a>,<a href="dictionary_C.html#251">closed_v</a>,<a href="dictionary_C.html#252">closed_w</a></span>
+<a name="133"><font size=-1>133     </font></a><span class="default">    </span>
+<a name="134"><font size=-1>134     </font></a><span class="default">    </span><span class="keyword">character</span><span class="default">(</span><span class="number">16</span><span class="default">)::<a href="dictionary_E.html#280">elcode</a></span>
+<a name="135"><font size=-1>135     </font></a><span class="default">    </span>
+<a name="136"><font size=-1>136     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_N.html#292">nbc</a>,<a href="dictionary_N.html#300">ndisp</a></span>
+<a name="137"><font size=-1>137     </font></a><span class="default">    </span>
+<a name="138"><font size=-1>138     </font></a><span class="default">    </span><span class="comment">!Material dimensions</span>
+<a name="139"><font size=-1>139     </font></a><span class="comment">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_N.html#277">ndi</a>    </span><span class="comment">!Direct Components</span>
+<a name="140"><font size=-1>140     </font></a><span class="comment">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_N.html#278">nshr</a>   </span><span class="comment">!Shear Components</span>
+<a name="141"><font size=-1>141     </font></a><span class="comment">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_N.html#113">ntens</a>  </span><span class="comment">!Total</span>
+<a name="142"><font size=-1>142     </font></a><span class="comment">    </span>
+<a name="143"><font size=-1>143     </font></a><span class="comment">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_N.html#279">npi</a>    </span><span class="comment">!Integration points per element</span>
+<a name="144"><font size=-1>144     </font></a><span class="comment">    </span>
+<a name="145"><font size=-1>145     </font></a><span class="comment">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">)::<a href="dictionary_S.html#133">SEnergy</a>,<a href="dictionary_S.html#912">SEnergyConv</a></span>
+<a name="146"><font size=-1>146     </font></a><span class="default">    </span>
+<a name="147"><font size=-1>147     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_I.html#120">iprops</a>,<a href="dictionary_N.html#289">npenal</a>,<a href="dictionary_I.html#290">ipenal</a></span>
+<a name="148"><font size=-1>148     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_P.html#114">props</a></span>
+<a name="149"><font size=-1>149     </font></a><span class="default">    </span>
+<a name="150"><font size=-1>150     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_B.html#258">bc</a>(:,:,:,:),<a href="dictionary_I.html#257">iper</a>(:)</span>
+<a name="151"><font size=-1>151     </font></a><span class="default">    </span>
+<a name="152"><font size=-1>152     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_D.html#1100">dir_bc</a>(:,:),<a href="dictionary_L.html#261">ld_el</a>(:,:)</span>
+<a name="153"><font size=-1>153     </font></a><span class="default">    </span>
+<a name="154"><font size=-1>154     </font></a><span class="default">    </span><span class="comment">!Knot vectors</span>
+<a name="155"><font size=-1>155     </font></a><span class="comment">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_U.html#254">u_knot</a>(:),<a href="dictionary_V.html#135">v_knot</a>(:),<a href="dictionary_W.html#136">w_knot</a>(:)</span>
+<a name="156"><font size=-1>156     </font></a><span class="default">    </span>
+<a name="157"><font size=-1>157     </font></a><span class="default">    </span><span class="comment">!Control points</span>
+<a name="158"><font size=-1>158     </font></a><span class="comment">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_B.html#255">b_net</a>(:,:,:,:),<a href="dictionary_B.html#256">b_net_final</a>(:,:,:,:)</span>
+<a name="159"><font size=-1>159     </font></a><span class="default">    </span>
+<a name="160"><font size=-1>160     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">), </span><span class="keyword">dimension</span><span class="default">(:,:,:,:), </span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_L.html#259">load</a>,<a href="dictionary_D.html#260">dispBC</a></span>
+<a name="161"><font size=-1>161     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">), </span><span class="keyword">dimension</span><span class="default">(:,:,:,:),</span><span class="keyword">allocatable </span><span class="default">:: <a href="dictionary_B.html#1098">BW</a></span>
+<a name="162"><font size=-1>162     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">), </span><span class="keyword">dimension</span><span class="default">(:), </span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_E.html#262">EY</a></span>
+<a name="163"><font size=-1>163     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">), </span><span class="keyword">dimension</span><span class="default">(:), </span><span class="keyword">allocatable</span><span class="default">:: <a href="dictionary_N.html#263">NU</a></span>
+<a name="164"><font size=-1>164     </font></a><span class="default">    </span>
+<a name="165"><font size=-1>165     </font></a><span class="default">    </span><span class="comment">!NURBS coordinate array</span>
+<a name="166"><font size=-1>166     </font></a><span class="comment">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_I.html#134">INN</a></span>
+<a name="167"><font size=-1>167     </font></a><span class="default">    </span>
+<a name="168"><font size=-1>168     </font></a><span class="default">    </span><span class="comment">!Element nodes array</span>
+<a name="169"><font size=-1>169     </font></a><span class="comment">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_I.html#118">IEN</a>,<a href="dictionary_C.html#1099">conn</a></span>
+<a name="170"><font size=-1>170     </font></a><span class="default">    </span>
+<a name="171"><font size=-1>171     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">), </span><span class="keyword">dimension</span><span class="default">(:,:), </span><span class="keyword">allocatable</span><span class="default">:: <a href="dictionary_F.html#265">Fext</a>,<a href="dictionary_F.html#268">Fini</a>,<a href="dictionary_F.html#269">FInc</a>,<a href="dictionary_R.html#270">Res</a>,<a href="dictionary_F.html#295">FextEq</a>,<a href="dictionary_F.html#271">Fint</a>,<a href="dictionary_I.html#266">ImpDisp</a></span>
+<a name="172"><font size=-1>172     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">), </span><span class="keyword">dimension</span><span class="default">(:,:), </span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_K.html#264">Kf</a>, <a href="dictionary_K.html#293">KfEq</a>, <a href="dictionary_K.html#299">KfEqInv</a>, <a href="dictionary_D.html#294">dispeqv</a></span>
+<a name="173"><font size=-1>173     </font></a><span class="default">    </span>
+<a name="174"><font size=-1>174     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">), </span><span class="keyword">dimension</span><span class="default">(:), </span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_R.html#272">RedCount</a></span>
+<a name="175"><font size=-1>175     </font></a><span class="default">    </span>
+<a name="176"><font size=-1>176     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">), </span><span class="keyword">dimension</span><span class="default">(:,:), </span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_D.html#296">dDisp</a>, <a href="dictionary_D.html#297">ddDisp</a>,<a href="dictionary_U.html#298">u</a></span>
+<a name="177"><font size=-1>177     </font></a><span class="default">    </span>
+<a name="178"><font size=-1>178     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:,:), </span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_S.html#121">stress</a>,<a href="dictionary_D.html#124">dstress</a>,<a href="dictionary_S.html#122">strain</a>,<a href="dictionary_D.html#123">dstrain</a></span>
+<a name="179"><font size=-1>179     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:,:), </span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_S.html#306">stress_conv</a>,<a href="dictionary_S.html#307">strain_conv</a></span>
+<a name="180"><font size=-1>180     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:), </span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_H.html#125">hard</a>,<a href="dictionary_H.html#308">hard_conv</a></span>
+<a name="181"><font size=-1>181     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:,:,:), </span><span class="keyword">allocatable</span><span class="default">:: <a href="dictionary_T.html#116">TmatD</a>,<a href="dictionary_L.html#117">laxis</a>,<a href="dictionary_L.html#309">laxisconv</a></span>
+<a name="182"><font size=-1>182     </font></a><span class="default">    </span>
+<a name="183"><font size=-1>183     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:), </span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_P.html#273">PMesh</a></span>
+<a name="184"><font size=-1>184     </font></a><span class="default">    </span>
+<a name="185"><font size=-1>185     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">,</span><span class="keyword">dimension</span><span class="default">(:)::<a href="dictionary_S.html#267">stpfrac</a>,<a href="dictionary_W.html#274">Weight</a></span>
+<a name="186"><font size=-1>186     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">,</span><span class="keyword">dimension</span><span class="default">(:,:)::<a href="dictionary_P.html#119">Points</a></span>
+<a name="187"><font size=-1>187     </font></a><span class="default">    </span>
+<a name="188"><font size=-1>188     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">,</span><span class="keyword">dimension</span><span class="default">(:,:)::<a href="dictionary_P.html#291">penalmeth</a></span>
+<a name="189"><font size=-1>189     </font></a><span class="default">    </span>
+<a name="190"><font size=-1>190     </font></a><span class="default">    </span><span class="comment">!Gravity paramenters</span>
+<a name="191"><font size=-1>191     </font></a><span class="comment">    </span><span class="keyword">logical</span><span class="default">::<a href="dictionary_G.html#126">gravity</a></span>
+<a name="192"><font size=-1>192     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_G.html#129">gravdir</a></span>
+<a name="193"><font size=-1>193     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">)::<a href="dictionary_G.html#128">gconst</a></span>
+<a name="194"><font size=-1>194     </font></a><span class="default">    </span>
+<a name="195"><font size=-1>195     </font></a><span class="default">    </span><span class="comment">!Pressure paramenters</span>
+<a name="196"><font size=-1>196     </font></a><span class="comment">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_I.html#302">ipress</a>,<a href="dictionary_I.html#1102">ierror</a></span>
+<a name="197"><font size=-1>197     </font></a><span class="default">    </span><span class="keyword">character</span><span class="default">(</span><span class="number">3</span><span class="default">)::<a href="dictionary_T.html#303">tempc</a></span>
+<a name="198"><font size=-1>198     </font></a><span class="default">    </span>
+<a name="199"><font size=-1>199     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">,</span><span class="keyword">dimension</span><span class="default">(:)::<a href="dictionary_P.html#132">pressvec</a></span>
+<a name="200"><font size=-1>200     </font></a><span class="default">    </span><span class="keyword">character</span><span class="default">(</span><span class="number">3</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">,</span><span class="keyword">dimension</span><span class="default">(:)::<a href="dictionary_F.html#301">ftag</a></span>
+<a name="201"><font size=-1>201     </font></a><span class="default">    </span><span class="keyword">logical</span><span class="default">::<a href="dictionary_P.html#130">pressure</a></span>
+<a name="202"><font size=-1>202     </font></a><span class="default">    </span>
+<a name="203"><font size=-1>203     </font></a><span class="default">    </span><span class="keyword">logical</span><span class="default">::<a href="dictionary_N.html#115">nlgeom</a></span>
+<a name="204"><font size=-1>204     </font></a><span class="default">    </span>
+<a name="205"><font size=-1>205     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">,</span><span class="keyword">dimension</span><span class="default">(:)::<a href="dictionary_L.html#275">loaddof</a>,<a href="dictionary_D.html#276">dispdof</a></span>
+<a name="206"><font size=-1>206     </font></a><span class="default">    </span>
+<a name="207"><font size=-1>207     </font></a><span class="default">    </span><span class="keyword">logical</span><span class="default">::<a href="dictionary_E.html#911">Eigen</a></span>
+<a name="208"><font size=-1>208     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">,</span><span class="keyword">dimension</span><span class="default">(:,:)::<a href="dictionary_V.html#1107">vcp</a></span>
+<a name="209"><font size=-1>209     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">allocatable</span><span class="default">,</span><span class="keyword">dimension</span><span class="default">(:)::<a href="dictionary_V.html#1108">vlp</a></span>
+<a name="210"><font size=-1>210     </font></a><span class="default">    </span>
+<a name="211"><font size=-1>211     </font></a><span class="default">    </span><span class="comment">!Allocations for B-bar method</span>
+<a name="212"><font size=-1>212     </font></a><span class="comment">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_I.html#1101">IENb</a></span>
+<a name="213"><font size=-1>213     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_M.html#282">MatAf</a></span>
+<a name="214"><font size=-1>214     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_M.html#285">MatVf</a></span>
+<a name="215"><font size=-1>215     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_M.html#283">MatCf</a>,<a href="dictionary_M.html#284">MatCfT</a></span>
+<a name="216"><font size=-1>216     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_K.html#286">Kbar</a>, <a href="dictionary_F.html#287">fbar</a></span>
+<a name="217"><font size=-1>217     </font></a><span class="default">    </span>
+<a name="218"><font size=-1>218     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_N.html#281">nalpha</a></span>
+<a name="219"><font size=-1>219     </font></a><span class="default">    </span>
+<a name="220"><font size=-1>220     </font></a><span class="default">    </span><span class="keyword">real</span><span class="default">(</span><span class="number">8</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_D.html#288">diag</a></span>
+<a name="221"><font size=-1>221     </font></a><span class="default">    </span>
+<a name="222"><font size=-1>222     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">)::<a href="dictionary_R.html#1106">runner</a>,<a href="dictionary_N.html#1105">nlin</a>,<a href="dictionary_N.html#1104">ncol</a></span>
+<a name="223"><font size=-1>223     </font></a><span class="default">    </span><span class="keyword">integer</span><span class="default">(</span><span class="number">4</span><span class="default">),</span><span class="keyword">dimension</span><span class="default">(:,:),</span><span class="keyword">allocatable</span><span class="default">::<a href="dictionary_I.html#1103">indx</a></span>
+<a name="224"><font size=-1>224     </font></a><span class="default">    </span>
+<a name="225"><font size=-1>225     </font></a><span class="default"></span><span class="keyword">end module</span>
+<a name="226"><font size=-1>226     </font></a><span class="keyword"></span>
+</pre></body></html>

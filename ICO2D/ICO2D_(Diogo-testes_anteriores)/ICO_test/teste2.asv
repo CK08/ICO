@@ -1,0 +1,16 @@
+clear all
+clc
+
+x = [-0.57 -0.57 0.57 0.57];
+y = [-0.57 0.57 -0.57 0.57];
+
+data = [100.0 125.0 125.0 150.0];
+
+zgrid = gridfit(x,y,data,5,5)
+
+[X,Y] = meshgrid(x,y)
+
+% scatter(x,y,50,data,'fill','s')
+% colorbar
+
+contour(X,Y,Z)

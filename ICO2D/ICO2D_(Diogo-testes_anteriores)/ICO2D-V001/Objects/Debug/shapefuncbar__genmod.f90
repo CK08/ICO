@@ -1,0 +1,14 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Wed May 28 10:58:14 2014
+        MODULE SHAPEFUNCBAR__genmod
+          INTERFACE 
+            SUBROUTINE SHAPEFUNCBAR(NEL,XII,ETAI,UBAR,VBAR,R)
+              USE MOD_VARIABLES
+              INTEGER(KIND=4) :: NEL
+              REAL(KIND=8), INTENT(IN) :: XII
+              REAL(KIND=8), INTENT(IN) :: ETAI
+              REAL(KIND=8), INTENT(IN) :: UBAR(NCPX+P-1)
+              REAL(KIND=8), INTENT(IN) :: VBAR(NCPY+Q-1)
+              REAL(KIND=8), INTENT(OUT) :: R(P*Q)
+            END SUBROUTINE SHAPEFUNCBAR
+          END INTERFACE 
+        END MODULE SHAPEFUNCBAR__genmod

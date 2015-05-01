@@ -1,0 +1,60 @@
+!----------------------------------------------------------------
+!
+! Simple Example with 2 patches
+!
+!----------------------------------------------------------------
+*begin_MP
+2       !number of patches
+2       !problem dimension
+1, 1	!degree of each dimension patch1
+1, 1    !degree of each dimension patch2
+2, 2    !control points in each direction patch1
+2, 2    !control points in each direction patch2
+0, 0    !open(0) or closed(1) knot vector patch1
+0, 0    !open(0) or closed(1) knot vector patch2
+8       !total number of nodes
+-----------------------------------------------------------------
+*knots    !knot spans
+0.0, 0.0, 1.0, 1.0  !U patch 1
+0.0, 0.0, 1.0, 1.0  !V patch 2
+0.0, 0.0, 1.0, 1.0  !U patch 2
+0.0, 0.0, 1.0, 1.0  !V patch 2
+-----------------------------------------------------------------
+*element
+Quad4E  !Element for patch 1
+Quad4E  !Element for patch 2
+*bnet     
+ 0.0, 0.0, 1.0 !nurbs control points for patch 1
+ 0.0, 1.0, 1.0
+ 1.0, 0.0, 1.0
+ 1.0, 1.0, 1.0
+ 0.0, 1.1, 1.0 !nurbs control points for patch 2
+ 0.0, 2.1, 1.0
+ 1.0, 1.1, 1.0
+ 1.0, 2.1, 1.0
+-----------------------------------------------------------------
+*MP_conn
+1, 4, 3, 2, 1
+2, 8, 7, 6, 5
+-----------------------------------------------------------------
+*material
+5
+1000.0, 0.0, 1.0, 0.0, 1.0e25
+1000.0, 0.0, 1.0, 0.0, 1.0e25
+*BCdof
+4
+1, 1
+1, 2
+2, 2
+7, 1
+-----------------------------------------------------------------
+*dispdof
+2
+7, 2, -0.1
+8, 2, -0.1
+*end
+
+
+
+1, 5, 4, 2, 1
+2, 6, 5, 3, 2

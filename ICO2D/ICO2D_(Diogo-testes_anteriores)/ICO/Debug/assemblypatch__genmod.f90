@@ -1,0 +1,13 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Thu May 29 14:18:25 2014
+        MODULE ASSEMBLYPATCH__genmod
+          INTERFACE 
+            SUBROUTINE ASSEMBLYPATCH(NEL,NZE,KE,FINTE)
+              USE MOD_VARIABLES
+              INTEGER(KIND=4), INTENT(IN) :: NEL
+              INTEGER(KIND=4), INTENT(IN) :: NZE
+              REAL(KIND=8), INTENT(IN) :: KE((P+1)*(Q+1)*NDS,(P+1)*(Q+1)&
+     &*NDS)
+              REAL(KIND=8), INTENT(IN) :: FINTE((P+1)*(Q+1)*NDS,1)
+            END SUBROUTINE ASSEMBLYPATCH
+          END INTERFACE 
+        END MODULE ASSEMBLYPATCH__genmod

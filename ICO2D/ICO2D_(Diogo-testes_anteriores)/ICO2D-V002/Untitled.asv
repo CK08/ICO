@@ -1,0 +1,11 @@
+clear all
+clc
+
+syms dx dy R xi yi
+
+dx = Rx*xi
+dy = R*yi
+
+f = sqrt(dx*dx+dy*dy)
+
+F = int(f,R)

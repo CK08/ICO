@@ -1,0 +1,223 @@
+clear all
+close all
+clc
+
+%Screen data
+scrsz = get(0,'ScreenSize');
+figure('Position',[scrsz(3)/2.03 scrsz(4)/15.0 scrsz(3)/2.0 scrsz(4)/1.175]);
+
+%Number of divisions for each patch
+np = 25;
+
+%Activate Ligth option
+Light = 0;
+
+%Read Initial data --------------------------------------------------------
+%File ID
+fid = fopen('NURBSInput.txt');
+
+%Read number of patches
+L = fgetl(fid);
+input = textscan(L,'%d');
+nptch = input{1,1};
+
+%Read number of control points
+ncpx = zeros(nptch,1);
+ncpy = zeros(nptch,1);
+for i=1:nptch
+    L=fgetl(fid);
+    input = textscan(L,'%d, %d');
+    ncpx(i) = input{1,1};
+    ncpy(i) = input{1,2};
+end
+
+%Read order of basis for each patch
+p = zeros(nptch,1);
+q = zeros(nptch,1);
+for i=1:nptch
+    L=fgetl(fid);
+    input = textscan(L,'%d, %d');
+    p(i) = input{1,1};
+    q(i) = input{1,2};
+end
+
+%Set knot vector length
+lengU = zeros(nptch,1);
+lengV = zeros(nptch,1);
+for i=1:nptch
+    lengU(i) = ncpx(i)+p(i)+1;
+    lengV(i) = ncpy(i)+q(i)+1;
+end
+
+%Read control points and plot each patch
+for k=1:nptch
+    
+    Points = zeros(ncpx(k),ncpy(k),3);
+    
+    %Get U knot vector
+    L=fgetl(fid);
+    U = str2num(L);
+    
+    %Get V knot vector
+    L=fgetl(fid);
+    V = str2num(L);
+    
+    %Read control points
+    for i=1:ncpx(k)
+        for j=1:ncpy(k)
+            L=fgetl(fid);
+            input = textscan(L,'%f, %f, %f');
+            Points(i,j,1) = input{1,1};
+            Points(i,j,2) = input{1,2};
+            Points(i,j,3) = input{1,3};
+        end
+    end
+    
+    %Weight control points
+    for k1=1:ncpx(k)
+        for k2 = 1:ncpy(k)
+            Pw(k1,k2,1:2) = Points(k1,k2,1:2)*Points(k1,k2,3);
+            Pw(k1,k2,3)   = Points(k1,k2,3);
+        end
+    end
+    
+    %Organise data for NURBS plor
+    pnts=zeros(4,ncpy(k),ncpx(k));
+    for i=1:ncpx(k)
+        for j=1:ncpy(k)
+            pnts(1,j,i) = Pw(i,j,1);
+            pnts(2,j,i) = Pw(i,j,2);
+            pnts(4,j,i) = Pw(i,j,3);
+        end
+    end
+    
+    knots{1} = V;
+    knots{2} = U;
+    
+    subplot(2,1,1)
+    %Plot NURBS surface
+    srf = nrbmak(pnts,knots);
+    if(Light==1)
+        nrbplot(srf,[np np],'light','on');
+    else
+        nrbplot(srf,[np np]);
+    end
+    
+    axis auto;
+    view([0 90]); % X-Y
+    hold on;
+    xlabel('x')
+    ylabel('y')
+    zlabel('z')
+    
+    subplot(2,1,2)
+    for 
+    
+    
+    
+end
+fclose(fid);
+%--------------------------------------------------------------------------
+
+
+%Read Output data ---------------------------------------------------------
+%File ID
+fid = fopen('NURBSOutput.txt');
+
+%Read number of patches
+L = fgetl(fid);
+input = textscan(L,'%d');
+nptch = input{1,1};
+
+%Read number of control points
+ncpx = zeros(nptch,1);
+ncpy = zeros(nptch,1);
+for i=1:nptch
+    L=fgetl(fid);
+    input = textscan(L,'%d, %d');
+    ncpx(i) = input{1,1};
+    ncpy(i) = input{1,2};
+end
+
+%Read order of basis for each patch
+p = zeros(nptch,1);
+q = zeros(nptch,1);
+for i=1:nptch
+    L=fgetl(fid);
+    input = textscan(L,'%d, %d');
+    p(i) = input{1,1};
+    q(i) = input{1,2};
+end
+
+%Set knot vector length
+lengU = zeros(nptch,1);
+lengV = zeros(nptch,1);
+for i=1:nptch
+    lengU(i) = ncpx(i)+p(i)+1;
+    lengV(i) = ncpy(i)+q(i)+1;
+end
+
+%Read control points and plot each patch
+for k=1:nptch
+    
+    Points = zeros(ncpx(k),ncpy(k),3);
+    
+    %Get U knot vector
+    L=fgetl(fid);
+    U = str2num(L);
+    
+    %Get V knot vector
+    L=fgetl(fid);
+    V = str2num(L);
+    
+    %Read control points
+    for i=1:ncpx(k)
+        for j=1:ncpy(k)
+            L=fgetl(fid);
+            input = textscan(L,'%f, %f, %f');
+            Points(i,j,1) = input{1,1};
+            Points(i,j,2) = input{1,2};
+            Points(i,j,3) = input{1,3};
+        end
+    end
+    
+    %Weight control points
+    for k1=1:ncpx(k)
+        for k2 = 1:ncpy(k)
+            Pw(k1,k2,1:2) = Points(k1,k2,1:2)*Points(k1,k2,3);
+            Pw(k1,k2,3)   = Points(k1,k2,3);
+        end
+    end
+    
+    %Organise data for NURBS plor
+    pnts=zeros(4,ncpy(k),ncpx(k));
+    for i=1:ncpx(k)
+        for j=1:ncpy(k)
+            pnts(1,j,i) = Pw(i,j,1);
+            pnts(2,j,i) = Pw(i,j,2);
+            pnts(4,j,i) = Pw(i,j,3);
+        end
+    end
+    
+    knots{1} = V;
+    knots{2} = U;
+    
+    subplot(2,1,2)
+    %Plot NURBS surface
+    srf = nrbmak(pnts,knots);
+    if(Light==1)
+        nrbplot(srf,[np np],'light','on');
+    else
+        nrbplot(srf,[np np]);
+    end
+    
+    axis auto;
+    view([0 90]);
+    hold on;
+    xlabel('x')
+    ylabel('y')
+    zlabel('z')
+    
+end
+fclose(fid);
+%--------------------------------------------------------------------------

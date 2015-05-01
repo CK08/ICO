@@ -1,0 +1,60 @@
+*begin
+2        !problem dimension
+2, 2     !degree of each dimension
+3, 3     !control points in each direction
+0, 0     !open(0) or closed(1) knot vector
+--------------------------------------------------------
+*knots    !knot spans
+0.0, 0.0, 0.0, 1.0, 1.0, 1.0  
+0.0, 0.0, 0.0, 1.0, 1.0, 1.0
+--------------------------------------------------------
+*element
+Quad9E
+*bnet     !nurbs control points
+ 0.0, 0.0, 1.0
+ 0.0, 0.5, 1.0
+ 0.0, 1.0, 1.0
+ 0.5, 0.0, 1.0
+ 0.5, 0.5, 1.0
+ 0.5, 1.0, 1.0
+ 1.0, 0.0, 1.0
+ 1.0, 0.5, 1.0
+ 1.0, 1.0, 1.0
+ --------------------------------------------------------
+*material
+5
+1000.0, 0.0, 1.0, 0.0, 1.0e25
+!Young Modulus, Poisson coef, thickness (set to 1.0 if not used), density, Yield Stress
+*Multistep
+2
+*step
+*bcdof
+6
+1, 1
+1, 2
+4, 1
+4, 2
+7, 1
+7, 2
+*dispdof
+3
+3, 1, 1.0
+6, 1, 1.0
+9, 1, 1.0
+*endstep
+*step
+*bcdof
+6
+1, 1
+1, 2
+4, 1
+4, 2
+7, 1
+7, 2
+*dispdof
+3
+3, 1, -0.5
+6, 1, -0.5
+9, 1, -0.5
+*endstep
+*end

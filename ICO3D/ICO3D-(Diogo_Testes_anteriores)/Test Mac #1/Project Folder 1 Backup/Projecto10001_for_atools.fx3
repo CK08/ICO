@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Fx3>
+<Fx3 version="1.2.1">
+    <ProgramList>
+        <Name>/Users/diogocardoso/Desktop/ICO3D/Test Mac #1/Project Folder 1/ICO3D.f90</Name>
+        <Arguments></Arguments>
+        <WorkingDirectory>/Users/diogocardoso/Desktop/ICO3D/Test Mac #1/Project Folder 1</WorkingDirectory>
+        <EnvironmentList></EnvironmentList>
+        <Script></Script>
+        <Type>append</Type>
+    </ProgramList>
+    <AddPaths>
+        <Path>/Users/diogocardoso/Desktop/ICO3D/Test Mac #1/Project Folder 1</Path>
+    </AddPaths>
+    <WatchVariables/>
+    <BreakpointList/>
+    <Memory>
+        <address></address>
+        <bytes></bytes>
+        <column></column>
+        <word></word>
+        <checked></checked>
+    </Memory>
+    <IgnoredSources>
+        <IgnoredList/>
+        <Unlocatable></Unlocatable>
+    </IgnoredSources>
+    <Arguments>
+        <Argument></Argument>
+    </Arguments>
+</Fx3>

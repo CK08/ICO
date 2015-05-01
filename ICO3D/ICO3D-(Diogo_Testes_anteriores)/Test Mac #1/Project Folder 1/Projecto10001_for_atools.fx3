@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Fx3>
+<Fx3 version="1.2.1">
+    <ProgramList>
+        <Name>/Users/diogocardoso/Desktop/ICO3D/Test Mac #1/Project Folder 1/ICO3D</Name>
+        <Arguments></Arguments>
+        <WorkingDirectory>/Users/diogocardoso/Desktop/ICO3D/Test Mac #1/Project Folder 1</WorkingDirectory>
+        <EnvironmentList></EnvironmentList>
+        <Script></Script>
+        <Type>append</Type>
+    </ProgramList>
+    <AddPaths/>
+    <WatchVariables/>
+    <BreakpointList>
+        <Breakpoint>
+            <id>13</id>
+            <line>229</line>
+            <filename>/Users/diogocardoso/Desktop/ICO3D/Test Mac #1/Project Folder 1/ICO3D.f90</filename>
+            <type>breakpoint</type>
+            <disposition></disposition>
+            <enabled>y</enabled>
+            <address>0x00005ef4</address>
+            <what></what>
+            <times>0</times>
+            <ignore>0</ignore>
+            <condition></condition>
+            <threads></threads>
+        </Breakpoint>
+        <Breakpoint>
+            <id>14</id>
+            <line>328</line>
+            <filename>/Users/diogocardoso/Desktop/ICO3D/Test Mac #1/Project Folder 1/ICO3D.f90</filename>
+            <type>breakpoint</type>
+            <disposition></disposition>
+            <enabled>y</enabled>
+            <address>0x00006a60</address>
+            <what></what>
+            <times>0</times>
+            <ignore>0</ignore>
+            <condition></condition>
+            <threads></threads>
+        </Breakpoint>
+        <Breakpoint>
+            <id>15</id>
+            <line>391</line>
+            <filename>/Users/diogocardoso/Desktop/ICO3D/Test Mac #1/Project Folder 1/ICO3D.f90</filename>
+            <type>breakpoint</type>
+            <disposition></disposition>
+            <enabled>y</enabled>
+            <address>0x0000704e</address>
+            <what></what>
+            <times>0</times>
+            <ignore>0</ignore>
+            <condition></condition>
+            <threads></threads>
+        </Breakpoint>
+        <Breakpoint>
+            <id>3</id>
+            <line>200</line>
+            <filename>/Users/diogocardoso/Desktop/ICO3D/Test Mac #1/Project Folder 1/ICO3D.f90</filename>
+            <type>breakpoint</type>
+            <disposition></disposition>
+            <enabled>y</enabled>
+            <address>0x00005533</address>
+            <what></what>
+            <times>0</times>
+            <ignore>0</ignore>
+            <condition></condition>
+            <threads></threads>
+        </Breakpoint>
+        <Breakpoint>
+            <id>9</id>
+            <line>180</line>
+            <filename>/Users/diogocardoso/Desktop/ICO3D/Test Mac #1/Project Folder 1/ICO3D.f90</filename>
+            <type>breakpoint</type>
+            <disposition></disposition>
+            <enabled>y</enabled>
+            <address>0x00004ccd</address>
+            <what></what>
+            <times>0</times>
+            <ignore>0</ignore>
+            <condition></condition>
+            <threads></threads>
+        </Breakpoint>
+    </BreakpointList>
+    <Memory>
+        <address></address>
+        <bytes>1</bytes>
+        <column>1</column>
+        <word>1</word>
+        <checked>N</checked>
+    </Memory>
+    <IgnoredSources>
+        <IgnoredList/>
+        <Unlocatable>N</Unlocatable>
+    </IgnoredSources>
+    <Arguments>
+        <Argument></Argument>
+    </Arguments>
+</Fx3>

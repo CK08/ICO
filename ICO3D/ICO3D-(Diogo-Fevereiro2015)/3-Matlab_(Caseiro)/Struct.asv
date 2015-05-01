@@ -1,0 +1,44 @@
+clear all
+close all
+clc
+
+
+scrsz = get(0,'ScreenSize');
+figure('Position',[scrsz(3)/6.0 scrsz(4)/3.4 scrsz(3)/1.4 scrsz(4)/2.0]);
+
+%Read KLM data --------------------------------------------------------
+%File ID
+fid = fopen('KFeq.txt');
+
+L = fgetl(fid);
+input = textscan(L,'%d');
+dim = input{1,1};
+
+KLM = zeros(dim);
+
+for i=1:dim
+    for j=1:dim
+        L = fgetl(fid);
+        input = textscan(L,'%f');
+        val = input{1,1};
+        if(abs(val) > 1.0e-12)
+            KLM(i,j) = val;
+        end
+    end
+end
+
+f=rand(dim,1);
+
+subplot(1,2,1)
+spy(KLM)
+grid on
+
+
+r = symrcm(KLM);
+m = symamd(KLM);
+
+subplot(1,2,2)
+spy(KLM(r,r))
+grid on
+
+KLM2 = KLM(r,r);

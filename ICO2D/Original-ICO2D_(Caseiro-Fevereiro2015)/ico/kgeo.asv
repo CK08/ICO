@@ -1,0 +1,17 @@
+clear all
+clc
+
+syms g m A k 
+syms NNt NDt DNt DDt NTt TNt TTt
+
+NDt = 1/A*NTt - g/A*NNt;
+
+DNt = 1/A*TNt - g/A*NNt;
+
+DDt = 1/A/A*TTt - g/A/A*TNt - g/A/A*NTt + g*g/A/A*NNt;
+
+matrix = g/m*NNt + (1-g*k/m)*NDt + (1-g*k/m)*DNt + (g*k*k/m-k)*DDt;
+
+collect(matrix,NNt)
+
+

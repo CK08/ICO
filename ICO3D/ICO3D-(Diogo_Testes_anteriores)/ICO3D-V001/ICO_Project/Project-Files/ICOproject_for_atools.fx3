@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Fx3>
+<Fx3 version="1.2.1">
+    <ProgramList>
+        <Name>/Users/diogocardoso/Desktop/ICO3D/ICO3D-V001/ICO_Project/Project-Files/ICO3D</Name>
+        <Arguments></Arguments>
+        <WorkingDirectory>/Users/diogocardoso/Desktop/ICO3D/ICO3D-V001/ICO_Project/Project-Files</WorkingDirectory>
+        <EnvironmentList></EnvironmentList>
+        <Script></Script>
+        <Type>append</Type>
+    </ProgramList>
+    <AddPaths/>
+    <WatchVariables/>
+    <BreakpointList/>
+    <Memory>
+        <address></address>
+        <bytes>1</bytes>
+        <column>1</column>
+        <word>1</word>
+        <checked>N</checked>
+    </Memory>
+    <IgnoredSources>
+        <IgnoredList/>
+        <Unlocatable>N</Unlocatable>
+    </IgnoredSources>
+    <Arguments>
+        <Argument></Argument>
+    </Arguments>
+</Fx3>

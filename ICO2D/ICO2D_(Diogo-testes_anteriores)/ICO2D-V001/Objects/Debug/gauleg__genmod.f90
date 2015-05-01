@@ -1,0 +1,10 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Thu May 29 14:18:24 2014
+        MODULE GAULEG__genmod
+          INTERFACE 
+            SUBROUTINE GAULEG(NGP,XABSC,WEIG)
+              INTEGER(KIND=4), INTENT(IN) :: NGP
+              REAL(KIND=8), INTENT(OUT) :: XABSC(NGP)
+              REAL(KIND=8), INTENT(OUT) :: WEIG(NGP)
+            END SUBROUTINE GAULEG
+          END INTERFACE 
+        END MODULE GAULEG__genmod

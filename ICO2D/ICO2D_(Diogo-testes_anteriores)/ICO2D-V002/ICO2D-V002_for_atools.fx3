@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Fx3>
+<Fx3 version="1.2.1">
+    <ProgramList>
+        <Name>/Users/diogocardoso/Desktop/ICO/ICO2D - 29may2014/ICO2D-V002/ICO</Name>
+        <Arguments></Arguments>
+        <WorkingDirectory>/Users/diogocardoso/Desktop/ICO/ICO2D - 29may2014/ICO2D-V002</WorkingDirectory>
+        <EnvironmentList></EnvironmentList>
+        <Script></Script>
+        <Type>append</Type>
+    </ProgramList>
+    <AddPaths>
+        <Path>&quot;/Users/diogocardoso/Desktop/ICO/ICO2D - 29may2014/ICO2D-V002&quot;</Path>
+    </AddPaths>
+    <WatchVariables>
+        <Variable>ImpDisp</Variable>
+        <Variable>u</Variable>
+    </WatchVariables>
+    <BreakpointList>
+        <Breakpoint>
+            <id>1</id>
+            <line>822</line>
+            <filename>/Users/diogocardoso/Desktop/ICO/ICO2D - 29may2014/ICO2D-V002/ICO.f90</filename>
+            <type>breakpoint</type>
+            <disposition></disposition>
+            <enabled>y</enabled>
+            <address>0x00058539</address>
+            <what></what>
+            <times>0</times>
+            <ignore>0</ignore>
+            <condition></condition>
+            <threads></threads>
+        </Breakpoint>
+    </BreakpointList>
+    <Memory>
+        <address></address>
+        <bytes>1</bytes>
+        <column>1</column>
+        <word>1</word>
+        <checked>N</checked>
+    </Memory>
+    <IgnoredSources>
+        <IgnoredList/>
+        <Unlocatable>N</Unlocatable>
+    </IgnoredSources>
+    <Arguments>
+        <Argument></Argument>
+    </Arguments>
+</Fx3>

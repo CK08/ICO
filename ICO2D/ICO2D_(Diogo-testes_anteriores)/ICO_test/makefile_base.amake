@@ -1,0 +1,268 @@
+
+#
+# Absoft Developer Tools Interface requires use of this makefile.
+#
+MKDIR=mkdir -p 
+RMDIR=rm -rf 
+
+#
+# Variables for the compiler(s) and linker
+#
+ABSOFT_F95=f95 
+ABSOFT_F77=f95
+VAST_PREPROCESSOR=vastfp
+RC=Rez
+GCC=gcc
+MAKE=amake2
+ABSOFT_F95_LINKER=f95
+DUMMY=
+
+#
+# Flags
+#
+ABSOFT_F95_FLAGS=        -W132 -g -m32 -stack:1f40000
+ABSOFT_F77_FLAGS=        -W132 -f77_compat -g -m32 -stack:1f40000
+RC_FLAGS=
+GCC_FLAGS=        -g -m32
+MAKE_FLAGS= -k
+ABSOFT_F95_LINKER_FLAGS=-IPA:debug=on -IPA:source_pu_order=on                -stack:1f40000 -m32 -g
+
+#
+# Name of the executable
+#
+TARGET=ICO2-test
+OUTDIR=.
+OBJDIR=./Debug
+
+#
+# Files for this executable
+#
+VAST_PREPROCESSOR_FILES=
+ABSOFT_F95_FILES="AllocVectors.f90" "ApplyBCs.f90" "ApplyPrescDisp.f90" "AssembleReduced.f90" "Assembly2D.f90" "AssemblyPatch.f90" "axisupdate2D.f90" "BasisFuns.f90" "BasisFunsDers.f90" "BSplineBasisAndDeriv.f90" "BSplinesToNURBS.f90" "ConvCheck.f90" "CtPTS.f90" "DefGrad2D.f90" "EliminateReac.f90" "ElQuad4E.f90" "ElQuad4S.f90" "ElQuad9E.f90" "ElQuad9EBBar.f90" "ElQuad9S.f90" "ElQuad16E.f90" "ElQuad16S.f90" "FindSpan.f90" "GaussQuadrature.f90" "GaussSolver.F90" "gen_ien_inn.f90" "GiDEqMesh.f90" "GiDEqRes.f90" "GiDMesh.f90" "GiDRes.f90" "GPTS_Contact.f90" "GPTS_Initialisation.f90" "ICO.f90" "ICOHeader.f90" "Local_Axis_2D.f90" "MaterialPStrain.f90" "MaterialPStress.F90" "MatIsoHardening.f90" "MatlabFiles.f90" "MatLinearElasticDP.F90" "MatLinearElasticTP.F90" "Mod_Variables.f90" "MPAlloc.f90" "OutputData.f90" "PolarDecomp2D.f90" "ProblemList.f90" "PTS_CollocationPoints.f90" "PTS_ComputeGap.f90" "PTS_ComputeGapPenal.f90" "PTS_ContactForces.f90" "PTS_SlaveIEN.f90" "PTS_SlaveSegment.f90" "ReadInFile.f90" "ShapeFunc.f90" "ShapeFuncBar.f90" "STPAlloc.f90" "Subroutines.f90" "TransformationMat2D.f90" "UpdatePoints.f90" "VonMisesStress.f90"
+ABSOFT_F77_FILES="dsrc2c.f"
+GCC_FILES=
+ABSOFT_F95_LINKER_FILES=
+RC_FILES=
+MAKE_FILES=
+
+#
+# Rules and dependencies for the executable
+#
+SRCFILES=$(ABSOFT_F95_FILES) $(ABSOFT_F77_FILES)
+OBJFILES="$(OBJDIR)/AllocVectors.o" "$(OBJDIR)/ApplyBCs.o" "$(OBJDIR)/ApplyPrescDisp.o" "$(OBJDIR)/AssembleReduced.o" "$(OBJDIR)/Assembly2D.o" "$(OBJDIR)/AssemblyPatch.o" "$(OBJDIR)/axisupdate2D.o" "$(OBJDIR)/BasisFuns.o" "$(OBJDIR)/BasisFunsDers.o" "$(OBJDIR)/BSplineBasisAndDeriv.o" "$(OBJDIR)/BSplinesToNURBS.o" "$(OBJDIR)/ConvCheck.o" "$(OBJDIR)/CtPTS.o" "$(OBJDIR)/DefGrad2D.o" "$(OBJDIR)/EliminateReac.o" "$(OBJDIR)/ElQuad4E.o" "$(OBJDIR)/ElQuad4S.o" "$(OBJDIR)/ElQuad9E.o" "$(OBJDIR)/ElQuad9EBBar.o" "$(OBJDIR)/ElQuad9S.o" "$(OBJDIR)/ElQuad16E.o" "$(OBJDIR)/ElQuad16S.o" "$(OBJDIR)/FindSpan.o" "$(OBJDIR)/GaussQuadrature.o" "$(OBJDIR)/GaussSolver.o" "$(OBJDIR)/gen_ien_inn.o" "$(OBJDIR)/GiDEqMesh.o" "$(OBJDIR)/GiDEqRes.o" "$(OBJDIR)/GiDMesh.o" "$(OBJDIR)/GiDRes.o" "$(OBJDIR)/GPTS_Contact.o" "$(OBJDIR)/GPTS_Initialisation.o" "$(OBJDIR)/ICO.o" "$(OBJDIR)/ICOHeader.o" "$(OBJDIR)/Local_Axis_2D.o" "$(OBJDIR)/MaterialPStrain.o" "$(OBJDIR)/MaterialPStress.o" "$(OBJDIR)/MatIsoHardening.o" "$(OBJDIR)/MatlabFiles.o" "$(OBJDIR)/MatLinearElasticDP.o" "$(OBJDIR)/MatLinearElasticTP.o" "$(OBJDIR)/Mod_Variables.o" "$(OBJDIR)/MPAlloc.o" "$(OBJDIR)/OutputData.o" "$(OBJDIR)/PolarDecomp2D.o" "$(OBJDIR)/ProblemList.o" "$(OBJDIR)/PTS_CollocationPoints.o" "$(OBJDIR)/PTS_ComputeGap.o" "$(OBJDIR)/PTS_ComputeGapPenal.o" "$(OBJDIR)/PTS_ContactForces.o" "$(OBJDIR)/PTS_SlaveIEN.o" "$(OBJDIR)/PTS_SlaveSegment.o" "$(OBJDIR)/ReadInFile.o" "$(OBJDIR)/ShapeFunc.o" "$(OBJDIR)/ShapeFuncBar.o" "$(OBJDIR)/STPAlloc.o" "$(OBJDIR)/Subroutines.o" "$(OBJDIR)/TransformationMat2D.o" "$(OBJDIR)/UpdatePoints.o" "$(OBJDIR)/VonMisesStress.o" "$(OBJDIR)/dsrc2c.o"
+all: "$(OBJDIR)" "$(OUTDIR)/$(TARGET)" $(RC_FILES)
+	
+
+"$(OUTDIR)/$(TARGET)":  $(OBJFILES) $(ABSOFT_F95_LINKER_FILES) $(MODFILES)
+	$(ABSOFT_F95_LINKER)  $(LPATHS) $(OBJFILES) $(ABSOFT_F95_LINKER_FILES) $(LIBS) -o "$(OUTDIR)/$(TARGET)" $(ABSOFT_F95_LINKER_FLAGS)
+
+
+
+"$(OBJDIR)/AllocVectors.o": "AllocVectors.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/AllocVectors.o" "AllocVectors.f90"
+
+"$(OBJDIR)/ApplyBCs.o": "ApplyBCs.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ApplyBCs.o" "ApplyBCs.f90"
+
+"$(OBJDIR)/ApplyPrescDisp.o": "ApplyPrescDisp.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ApplyPrescDisp.o" "ApplyPrescDisp.f90"
+
+"$(OBJDIR)/AssembleReduced.o": "AssembleReduced.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/AssembleReduced.o" "AssembleReduced.f90"
+
+"$(OBJDIR)/Assembly2D.o": "Assembly2D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/Assembly2D.o" "Assembly2D.f90"
+
+"$(OBJDIR)/AssemblyPatch.o": "AssemblyPatch.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/AssemblyPatch.o" "AssemblyPatch.f90"
+
+"$(OBJDIR)/axisupdate2D.o": "axisupdate2D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/axisupdate2D.o" "axisupdate2D.f90"
+
+"$(OBJDIR)/BasisFuns.o": "BasisFuns.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/BasisFuns.o" "BasisFuns.f90"
+
+"$(OBJDIR)/BasisFunsDers.o": "BasisFunsDers.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/BasisFunsDers.o" "BasisFunsDers.f90"
+
+"$(OBJDIR)/BSplineBasisAndDeriv.o": "BSplineBasisAndDeriv.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/BSplineBasisAndDeriv.o" "BSplineBasisAndDeriv.f90"
+
+"$(OBJDIR)/BSplinesToNURBS.o": "BSplinesToNURBS.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/BSplinesToNURBS.o" "BSplinesToNURBS.f90"
+
+"$(OBJDIR)/ConvCheck.o": "ConvCheck.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ConvCheck.o" "ConvCheck.f90"
+
+"$(OBJDIR)/CtPTS.o": "CtPTS.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/CtPTS.o" "CtPTS.f90"
+
+"$(OBJDIR)/DefGrad2D.o": "DefGrad2D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/DefGrad2D.o" "DefGrad2D.f90"
+
+"$(OBJDIR)/EliminateReac.o": "EliminateReac.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/EliminateReac.o" "EliminateReac.f90"
+
+"$(OBJDIR)/ElQuad4E.o": "ElQuad4E.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ElQuad4E.o" "ElQuad4E.f90"
+
+"$(OBJDIR)/ElQuad4S.o": "ElQuad4S.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ElQuad4S.o" "ElQuad4S.f90"
+
+"$(OBJDIR)/ElQuad9E.o": "ElQuad9E.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ElQuad9E.o" "ElQuad9E.f90"
+
+"$(OBJDIR)/ElQuad9EBBar.o": "ElQuad9EBBar.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ElQuad9EBBar.o" "ElQuad9EBBar.f90"
+
+"$(OBJDIR)/ElQuad9S.o": "ElQuad9S.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ElQuad9S.o" "ElQuad9S.f90"
+
+"$(OBJDIR)/ElQuad16E.o": "ElQuad16E.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ElQuad16E.o" "ElQuad16E.f90"
+
+"$(OBJDIR)/ElQuad16S.o": "ElQuad16S.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ElQuad16S.o" "ElQuad16S.f90"
+
+"$(OBJDIR)/FindSpan.o": "FindSpan.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/FindSpan.o" "FindSpan.f90"
+
+"$(OBJDIR)/GaussQuadrature.o": "GaussQuadrature.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GaussQuadrature.o" "GaussQuadrature.f90"
+
+"$(OBJDIR)/GaussSolver.o": "GaussSolver.F90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GaussSolver.o" "GaussSolver.F90"
+
+"$(OBJDIR)/gen_ien_inn.o": "gen_ien_inn.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/gen_ien_inn.o" "gen_ien_inn.f90"
+
+"$(OBJDIR)/GiDEqMesh.o": "GiDEqMesh.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GiDEqMesh.o" "GiDEqMesh.f90"
+
+"$(OBJDIR)/GiDEqRes.o": "GiDEqRes.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GiDEqRes.o" "GiDEqRes.f90"
+
+"$(OBJDIR)/GiDMesh.o": "GiDMesh.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GiDMesh.o" "GiDMesh.f90"
+
+"$(OBJDIR)/GiDRes.o": "GiDRes.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GiDRes.o" "GiDRes.f90"
+
+"$(OBJDIR)/GPTS_Contact.o": "GPTS_Contact.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GPTS_Contact.o" "GPTS_Contact.f90"
+
+"$(OBJDIR)/GPTS_Initialisation.o": "GPTS_Initialisation.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GPTS_Initialisation.o" "GPTS_Initialisation.f90"
+
+"$(OBJDIR)/ICO.o": "ICO.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ICO.o" "ICO.f90"
+
+"$(OBJDIR)/ICOHeader.o": "ICOHeader.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ICOHeader.o" "ICOHeader.f90"
+
+"$(OBJDIR)/Local_Axis_2D.o": "Local_Axis_2D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/Local_Axis_2D.o" "Local_Axis_2D.f90"
+
+"$(OBJDIR)/MaterialPStrain.o": "MaterialPStrain.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MaterialPStrain.o" "MaterialPStrain.f90"
+
+"$(OBJDIR)/MaterialPStress.o": "MaterialPStress.F90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MaterialPStress.o" "MaterialPStress.F90"
+
+"$(OBJDIR)/MatIsoHardening.o": "MatIsoHardening.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MatIsoHardening.o" "MatIsoHardening.f90"
+
+"$(OBJDIR)/MatlabFiles.o": "MatlabFiles.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MatlabFiles.o" "MatlabFiles.f90"
+
+"$(OBJDIR)/MatLinearElasticDP.o": "MatLinearElasticDP.F90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MatLinearElasticDP.o" "MatLinearElasticDP.F90"
+
+"$(OBJDIR)/MatLinearElasticTP.o": "MatLinearElasticTP.F90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MatLinearElasticTP.o" "MatLinearElasticTP.F90"
+
+"$(OBJDIR)/Mod_Variables.o": "Mod_Variables.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/Mod_Variables.o" "Mod_Variables.f90"
+
+"$(OBJDIR)/MPAlloc.o": "MPAlloc.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MPAlloc.o" "MPAlloc.f90"
+
+"$(OBJDIR)/OutputData.o": "OutputData.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/OutputData.o" "OutputData.f90"
+
+"$(OBJDIR)/PolarDecomp2D.o": "PolarDecomp2D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/PolarDecomp2D.o" "PolarDecomp2D.f90"
+
+"$(OBJDIR)/ProblemList.o": "ProblemList.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ProblemList.o" "ProblemList.f90"
+
+"$(OBJDIR)/PTS_CollocationPoints.o": "PTS_CollocationPoints.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/PTS_CollocationPoints.o" "PTS_CollocationPoints.f90"
+
+"$(OBJDIR)/PTS_ComputeGap.o": "PTS_ComputeGap.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/PTS_ComputeGap.o" "PTS_ComputeGap.f90"
+
+"$(OBJDIR)/PTS_ComputeGapPenal.o": "PTS_ComputeGapPenal.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/PTS_ComputeGapPenal.o" "PTS_ComputeGapPenal.f90"
+
+"$(OBJDIR)/PTS_ContactForces.o": "PTS_ContactForces.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/PTS_ContactForces.o" "PTS_ContactForces.f90"
+
+"$(OBJDIR)/PTS_SlaveIEN.o": "PTS_SlaveIEN.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/PTS_SlaveIEN.o" "PTS_SlaveIEN.f90"
+
+"$(OBJDIR)/PTS_SlaveSegment.o": "PTS_SlaveSegment.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/PTS_SlaveSegment.o" "PTS_SlaveSegment.f90"
+
+"$(OBJDIR)/ReadInFile.o": "ReadInFile.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ReadInFile.o" "ReadInFile.f90"
+
+"$(OBJDIR)/ShapeFunc.o": "ShapeFunc.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ShapeFunc.o" "ShapeFunc.f90"
+
+"$(OBJDIR)/ShapeFuncBar.o": "ShapeFuncBar.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ShapeFuncBar.o" "ShapeFuncBar.f90"
+
+"$(OBJDIR)/STPAlloc.o": "STPAlloc.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/STPAlloc.o" "STPAlloc.f90"
+
+"$(OBJDIR)/Subroutines.o": "Subroutines.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/Subroutines.o" "Subroutines.f90"
+
+"$(OBJDIR)/TransformationMat2D.o": "TransformationMat2D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/TransformationMat2D.o" "TransformationMat2D.f90"
+
+"$(OBJDIR)/UpdatePoints.o": "UpdatePoints.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/UpdatePoints.o" "UpdatePoints.f90"
+
+"$(OBJDIR)/VonMisesStress.o": "VonMisesStress.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/VonMisesStress.o" "VonMisesStress.f90"
+
+"$(OBJDIR)/dsrc2c.o": "dsrc2c.f"
+	$(ABSOFT_F77) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F77_FLAGS) -o "$(OBJDIR)/dsrc2c.o" "dsrc2c.f"
+
+"$(OBJDIR)":
+	$(MKDIR) "$(OBJDIR)"
+#
+# Clean Rules
+#
+clean:
+	$(RMDIR) "$(OBJDIR)"
+	$(RMDIR) "$(TARGET)"
+
+#
+# Define necessary macros for dependency scanning.
+#
+MKDEP=amakedepend
+MKDEP_FLAGS= -quiet "-pre$(OBJDIR)/" -Y -modInfo -errdel -f90 -f makefile.amake
+#
+# Generate dependencies for the project
+#
+ScanAll: "$(OUTDIR)" "$(OBJDIR)" MakeDepsAll
+
+#
+# Scan for all F77, F95, and c/c++ dependencies
+#
+MakeDepsAll:
+	$(MKDEP) -quiet "-pre./Debug/" -Y -modInfo -errdel -f90 -f makefile.amake -a -info         -W132 -g -m32 -stack:1f40000 -info "AllocVectors.f90" "ApplyBCs.f90" "ApplyPrescDisp.f90" "AssembleReduced.f90" "Assembly2D.f90" "AssemblyPatch.f90" "axisupdate2D.f90" "BasisFuns.f90" "BasisFunsDers.f90" "BSplineBasisAndDeriv.f90" "BSplinesToNURBS.f90" "ConvCheck.f90" "CtPTS.f90" "DefGrad2D.f90" "EliminateReac.f90" "ElQuad4E.f90" "ElQuad4S.f90" "ElQuad9E.f90" "ElQuad9EBBar.f90" "ElQuad9S.f90" "ElQuad16E.f90" "ElQuad16S.f90" "FindSpan.f90" "GaussQuadrature.f90" "GaussSolver.F90" "gen_ien_inn.f90" "GiDEqMesh.f90" "GiDEqRes.f90" "GiDMesh.f90" "GiDRes.f90" "GPTS_Contact.f90" "GPTS_Initialisation.f90" "ICO.f90" "ICOHeader.f90" "Local_Axis_2D.f90" "MaterialPStrain.f90" "MaterialPStress.F90" "MatIsoHardening.f90" "MatlabFiles.f90" "MatLinearElasticDP.F90" "MatLinearElasticTP.F90" "Mod_Variables.f90" "MPAlloc.f90" "OutputData.f90" "PolarDecomp2D.f90" "ProblemList.f90" "PTS_CollocationPoints.f90" "PTS_ComputeGap.f90" "PTS_ComputeGapPenal.f90" "PTS_ContactForces.f90" "PTS_SlaveIEN.f90" "PTS_SlaveSegment.f90" "ReadInFile.f90" "ShapeFunc.f90" "ShapeFuncBar.f90" "STPAlloc.f90" "Subroutines.f90" "TransformationMat2D.f90" "UpdatePoints.f90" "VonMisesStress.f90" 
+	$(MKDEP) -quiet "-pre./Debug/" -Y -modInfo -errdel -f90 -f makefile.amake -a -info         -W132 -f77_compat -g -m32 -stack:1f40000 -info "dsrc2c.f" 

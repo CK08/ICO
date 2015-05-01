@@ -1,0 +1,10 @@
+MESH "problem" dimension 2 ElemType Quadrilateral Nnode  4
+ coordinates
+   1   0.0000000000000000E+00    0.0000000000000000E+00
+   2                      NaN                       NaN
+   3                      NaN                       NaN
+   4                      NaN                       NaN
+ end coordinates
+ Elements
+   1    1    2    4    3
+ end elements

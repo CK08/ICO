@@ -1,0 +1,234 @@
+
+#
+# Absoft Developer Tools Interface requires use of this makefile.
+#
+MKDIR=mkdir -p 
+RMDIR=rm -rf 
+
+#
+# Variables for the compiler(s) and linker
+#
+ABSOFT_F95=f95 
+ABSOFT_F77=f95
+VAST_PREPROCESSOR=vastfp
+RC=Rez
+GCC=gcc
+MAKE=amake2
+ABSOFT_F95_LINKER=f95
+DUMMY=
+
+#
+# Flags
+#
+ABSOFT_F95_FLAGS=        -g -m32 -stack:1f40000
+ABSOFT_F77_FLAGS=        -f77_compat -g -m32 -stack:1f40000
+RC_FLAGS=
+GCC_FLAGS=        -g -m32
+MAKE_FLAGS= -k
+ABSOFT_F95_LINKER_FLAGS=-IPA:debug=on -IPA:source_pu_order=on                -stack:1f40000 -m32 -g
+
+#
+# Name of the executable
+#
+TARGET=ICO3D.f90
+OUTDIR=.
+OBJDIR=./Debug
+
+#
+# Files for this executable
+#
+VAST_PREPROCESSOR_FILES=
+ABSOFT_F95_FILES="ICO3D.f90" "ReadInFile.f90" "Mod_Variables.f90" "MatLinearElastic3D.F90" "gen_ien_inn_bar.f90" "gen_ien_inn.f90" "GiDMesh.f90" "ElHex27.f90" "Assembly3D.f95" "AssemblyBBar.F90" "gaussj__genmod.f90" "MatIsoHardening.f90" "MatPlastic3D.f90" "VonMisesStress.f90" "AxisUpdate.f90" "local_axis.f90" "PolarDecomp2D.f90" "TransformationMat3D.f90" "Subroutines.f90" "BSplineBasisAndDeriv.f90" "ShapeFunc.f90" "DefGrad3D.f90" "GaussQuadrature.f90" "grvt.f90" "prssr.f90" "BasisFunsDers.f90" "FindSpan.f90"
+ABSOFT_F77_FILES=
+GCC_FILES=
+ABSOFT_F95_LINKER_FILES=
+RC_FILES=
+MAKE_FILES=
+
+#
+# Rules and dependencies for the executable
+#
+SRCFILES=$(ABSOFT_F95_FILES)
+OBJFILES="$(OBJDIR)/ICO3D.o" "$(OBJDIR)/ReadInFile.o" "$(OBJDIR)/Mod_Variables.o" "$(OBJDIR)/MatLinearElastic3D.o" "$(OBJDIR)/gen_ien_inn_bar.o" "$(OBJDIR)/gen_ien_inn.o" "$(OBJDIR)/GiDMesh.o" "$(OBJDIR)/ElHex27.o" "$(OBJDIR)/Assembly3D.o" "$(OBJDIR)/AssemblyBBar.o" "$(OBJDIR)/gaussj__genmod.o" "$(OBJDIR)/MatIsoHardening.o" "$(OBJDIR)/MatPlastic3D.o" "$(OBJDIR)/VonMisesStress.o" "$(OBJDIR)/AxisUpdate.o" "$(OBJDIR)/local_axis.o" "$(OBJDIR)/PolarDecomp2D.o" "$(OBJDIR)/TransformationMat3D.o" "$(OBJDIR)/Subroutines.o" "$(OBJDIR)/BSplineBasisAndDeriv.o" "$(OBJDIR)/ShapeFunc.o" "$(OBJDIR)/DefGrad3D.o" "$(OBJDIR)/GaussQuadrature.o" "$(OBJDIR)/grvt.o" "$(OBJDIR)/prssr.o" "$(OBJDIR)/BasisFunsDers.o" "$(OBJDIR)/FindSpan.o"
+all: "$(OBJDIR)" "$(OUTDIR)/$(TARGET)" $(RC_FILES)
+	
+
+"$(OUTDIR)/$(TARGET)":  $(OBJFILES) $(ABSOFT_F95_LINKER_FILES) $(MODFILES)
+	$(ABSOFT_F95_LINKER)  $(LPATHS) $(OBJFILES) $(ABSOFT_F95_LINKER_FILES) $(LIBS) -o "$(OUTDIR)/$(TARGET)" $(ABSOFT_F95_LINKER_FLAGS)
+
+
+
+"$(OBJDIR)/ICO3D.o": "ICO3D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ICO3D.o" "ICO3D.f90"
+
+"$(OBJDIR)/ReadInFile.o": "ReadInFile.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ReadInFile.o" "ReadInFile.f90"
+
+"$(OBJDIR)/Mod_Variables.o": "Mod_Variables.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/Mod_Variables.o" "Mod_Variables.f90"
+
+"$(OBJDIR)/MatLinearElastic3D.o": "MatLinearElastic3D.F90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MatLinearElastic3D.o" "MatLinearElastic3D.F90"
+
+"$(OBJDIR)/gen_ien_inn_bar.o": "gen_ien_inn_bar.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/gen_ien_inn_bar.o" "gen_ien_inn_bar.f90"
+
+"$(OBJDIR)/gen_ien_inn.o": "gen_ien_inn.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/gen_ien_inn.o" "gen_ien_inn.f90"
+
+"$(OBJDIR)/GiDMesh.o": "GiDMesh.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GiDMesh.o" "GiDMesh.f90"
+
+"$(OBJDIR)/ElHex27.o": "ElHex27.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ElHex27.o" "ElHex27.f90"
+
+"$(OBJDIR)/Assembly3D.o": "Assembly3D.f95"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/Assembly3D.o" "Assembly3D.f95"
+
+"$(OBJDIR)/AssemblyBBar.o": "AssemblyBBar.F90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/AssemblyBBar.o" "AssemblyBBar.F90"
+
+"$(OBJDIR)/gaussj__genmod.o": "gaussj__genmod.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/gaussj__genmod.o" "gaussj__genmod.f90"
+
+"$(OBJDIR)/MatIsoHardening.o": "MatIsoHardening.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MatIsoHardening.o" "MatIsoHardening.f90"
+
+"$(OBJDIR)/MatPlastic3D.o": "MatPlastic3D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/MatPlastic3D.o" "MatPlastic3D.f90"
+
+"$(OBJDIR)/VonMisesStress.o": "VonMisesStress.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/VonMisesStress.o" "VonMisesStress.f90"
+
+"$(OBJDIR)/AxisUpdate.o": "AxisUpdate.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/AxisUpdate.o" "AxisUpdate.f90"
+
+"$(OBJDIR)/local_axis.o": "local_axis.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/local_axis.o" "local_axis.f90"
+
+"$(OBJDIR)/PolarDecomp2D.o": "PolarDecomp2D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/PolarDecomp2D.o" "PolarDecomp2D.f90"
+
+"$(OBJDIR)/TransformationMat3D.o": "TransformationMat3D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/TransformationMat3D.o" "TransformationMat3D.f90"
+
+"$(OBJDIR)/Subroutines.o": "Subroutines.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/Subroutines.o" "Subroutines.f90"
+
+"$(OBJDIR)/BSplineBasisAndDeriv.o": "BSplineBasisAndDeriv.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/BSplineBasisAndDeriv.o" "BSplineBasisAndDeriv.f90"
+
+"$(OBJDIR)/ShapeFunc.o": "ShapeFunc.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/ShapeFunc.o" "ShapeFunc.f90"
+
+"$(OBJDIR)/DefGrad3D.o": "DefGrad3D.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/DefGrad3D.o" "DefGrad3D.f90"
+
+"$(OBJDIR)/GaussQuadrature.o": "GaussQuadrature.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/GaussQuadrature.o" "GaussQuadrature.f90"
+
+"$(OBJDIR)/grvt.o": "grvt.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/grvt.o" "grvt.f90"
+
+"$(OBJDIR)/prssr.o": "prssr.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/prssr.o" "prssr.f90"
+
+"$(OBJDIR)/BasisFunsDers.o": "BasisFunsDers.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/BasisFunsDers.o" "BasisFunsDers.f90"
+
+"$(OBJDIR)/FindSpan.o": "FindSpan.f90"
+	$(ABSOFT_F95) -c -nowdir -YLOOP_ANALYZER -LNO:simd_verbose=on -LNO:apo_verbose=on -CG:filetable_verbose=on $(ABSOFT_F95_FLAGS) -o "$(OBJDIR)/FindSpan.o" "FindSpan.f90"
+
+"$(OBJDIR)":
+	$(MKDIR) "$(OBJDIR)"
+#
+# Clean Rules
+#
+clean:
+	$(RMDIR) "$(OBJDIR)"
+	$(RMDIR) "$(TARGET)"
+
+#
+# Define necessary macros for dependency scanning.
+#
+MKDEP=amakedepend
+MKDEP_FLAGS= -quiet "-pre$(OBJDIR)/" -Y -modInfo -errdel -f90 -f makefile.amake
+#
+# Generate dependencies for the project
+#
+ScanAll: "$(OUTDIR)" "$(OBJDIR)" MakeDepsAll
+
+#
+# Scan for all F77, F95, and c/c++ dependencies
+#
+MakeDepsAll:
+	$(MKDEP) -quiet "-pre./Debug/" -Y -modInfo -errdel -f90 -f makefile.amake -a -info         -g -m32 -stack:1f40000 -info "ICO3D.f90" "ReadInFile.f90" "Mod_Variables.f90" "MatLinearElastic3D.F90" "gen_ien_inn_bar.f90" "gen_ien_inn.f90" "GiDMesh.f90" "ElHex27.f90" "Assembly3D.f95" "AssemblyBBar.F90" "gaussj__genmod.f90" "MatIsoHardening.f90" "MatPlastic3D.f90" "VonMisesStress.f90" "AxisUpdate.f90" "local_axis.f90" "PolarDecomp2D.f90" "TransformationMat3D.f90" "Subroutines.f90" "BSplineBasisAndDeriv.f90" "ShapeFunc.f90" "DefGrad3D.f90" "GaussQuadrature.f90" "grvt.f90" "prssr.f90" "BasisFunsDers.f90" "FindSpan.f90" 
+# DO NOT DELETE THIS LINE - makedepend depends upon it.
+
+
+
+"./Debug/Mod_Variables.o"&: "./Debug/mod_variables.mod"
+
+
+
+
+
+
+
+
+"./Debug/gaussj__genmod.o"&: "./Debug/gaussj__genmod.mod"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Defined Module: ./Debug/mod_variables.mod
+# Defined Module: ./Debug/gaussj__genmod.mod
+"./Debug/ICO3D.o": "./Debug/mod_variables.mod"
+
+"./Debug/ReadInFile.o": "./Debug/mod_variables.mod"
+
+
+
+"./Debug/gen_ien_inn_bar.o": "./Debug/mod_variables.mod"
+
+"./Debug/gen_ien_inn.o": "./Debug/mod_variables.mod"
+
+"./Debug/GiDMesh.o": "./Debug/mod_variables.mod"
+
+"./Debug/ElHex27.o": "./Debug/mod_variables.mod"
+
+"./Debug/Assembly3D.o": "./Debug/mod_variables.mod"
+
+"./Debug/AssemblyBBar.o": "./Debug/mod_variables.mod"
+
+
+
+
+
+
+
+
+
+
+
+"./Debug/ShapeFunc.o": "./Debug/mod_variables.mod"
+
+
+
+
+"./Debug/prssr.o": "./Debug/mod_variables.mod"
+
+
